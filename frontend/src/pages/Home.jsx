@@ -3,15 +3,23 @@ import { Link } from "react-router-dom";
 function Home() {
   return (
     <div className="relative w-full h-screen">
+      {/* Botão de Login fixo no canto superior direito */}
+      <Link
+        to="/login"
+        className="fixed top-4 right-4 bg-blue-500 text-white px-4 py-2 rounded-lg shadow-lg z-50 hover:bg-blue-600 transition"
+      >
+        Login
+      </Link>
+
       {/* Fundo com imagem */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center" 
+      <div
+        className="absolute inset-0 bg-cover bg-center"
         style={{ backgroundImage: "url('/construction-silhouette.jpg')" }}
       >
         <div className="absolute inset-0 bg-black bg-opacity-50"></div>
       </div>
 
-      {/* Conteúdo central */}
+      {/* Conteúdo Central */}
       <div className="relative z-10 flex flex-col items-center justify-center h-full text-white text-center px-6">
         <h2 className="text-lg tracking-widest uppercase text-gray-300">
           Análise Comparativa de Custos
@@ -22,22 +30,12 @@ function Home() {
         <p className="mt-4 text-lg max-w-2xl text-gray-300">
           Compare equipamentos e produza seu concreto!
         </p>
-
-        {/* Botões responsivos */}
-        <div className="mt-6 flex flex-col sm:flex-row items-center">
-          <Link 
-            to="/home" 
-            className="bg-yellow-500 text-gray-900 px-6 py-3 rounded-lg shadow-md hover:bg-yellow-600 transition font-bold text-lg mb-4 sm:mb-0 sm:mr-4"
-          >
-            Comece Agora 🚀
-          </Link>
-          <Link 
-            to="/login" 
-            className="bg-blue-500 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-600 transition font-bold text-lg"
-          >
-            Login
-          </Link>
-        </div>
+        <Link
+          to="/home"
+          className="mt-6 bg-yellow-500 text-gray-900 px-6 py-3 rounded-lg shadow-md hover:bg-yellow-600 transition font-bold text-lg"
+        >
+          Comece Agora 🚀
+        </Link>
       </div>
     </div>
   );
