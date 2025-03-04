@@ -23,7 +23,7 @@ function Home() {
           Compare equipamentos e produza seu concreto!
         </p>
         <Link
-          to="/analise"
+          to="/home"
           className="mt-6 bg-yellow-500 text-gray-900 px-6 py-3 rounded-lg shadow-md hover:bg-yellow-600 transition font-bold text-lg"
         >
           Comece Agora 🚀
