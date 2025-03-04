@@ -8,6 +8,11 @@ const equipamentoRoutes = require("./routes/equipamentoRoutes");
 const tracoRoutes = require("./routes/tracoRoutes");
 const authRoutes = require("./routes/authRoutes");
 
+app.get("/", (req, res) => {
+  res.send("✅ Backend conectado e rodando corretamente!");
+});
+
+
 const app = express();
 
 // 📌 Middlewares globais

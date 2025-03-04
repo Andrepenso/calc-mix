@@ -3,8 +3,11 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  base: "/", // 🔹 Mantém a base correta para evitar erro 404
-  build: {
-    outDir: "dist", // 🔹 Garante que o build seja feito corretamente
+  server: {
+    port: 5173, // Porta de desenvolvimento
   },
+  build: {
+    outDir: "dist", // Diretório de saída
+  },
+  base: "/", // 🔹 GARANTE QUE O FRONTEND FUNCIONE NO RENDER
 });
