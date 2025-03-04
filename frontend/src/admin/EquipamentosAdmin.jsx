@@ -35,7 +35,7 @@ function EquipamentosAdmin() {
     }
   };
 
-   const handleChange = (e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setEquipamentoData({ ...equipamentoData, [name]: value });
   };
@@ -70,12 +70,30 @@ function EquipamentosAdmin() {
       await axios.delete(`${import.meta.env.VITE_API_URL}/api/equipamentos/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      fetchTracos();
+
+      if (editingId === id) {
+        setEditingId(null);
+        setEquipamentoData({
+          nome: "",
+          volume_balao: "",
+          capacidade_producao_hora: "",
+          capacidade_tanque_diesel: "",
+          capacidade_oleo_motor: "",
+          capacidade_oleo_hidraulico: "",
+          capacidade_oleo_redutor: "",
+          fluido_freios: "",
+          graxa: "",
+          valor: "",
+          descricao: "",
+          imagem: null,
+        });
+        setShowModal(false);
+      }
+      fetchEquipamentos();
     } catch (error) {
       console.error("Erro ao deletar equipamento", error);
     }
   };
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -83,7 +101,6 @@ function EquipamentosAdmin() {
     try {
       const formData = new FormData();
       
-      // Adicionando apenas campos preenchidos
       Object.keys(equipamentoData).forEach((key) => {
         if (equipamentoData[key]) {
           formData.append(key, equipamentoData[key]);
@@ -128,7 +145,6 @@ function EquipamentosAdmin() {
       console.error("Erro ao salvar equipamento", error);
     }
   };
-  
 
   return (
     <div className="p-6 pt-24">
@@ -137,85 +153,172 @@ function EquipamentosAdmin() {
         ➕ Adicionar Equipamento
       </button>
 
-      {/* 🏗️ Modal para adicionar/editar equipamento */}
+      {/* Modal responsivo */}
       {showModal && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-1/2">
-            <h2 className="text-xl font-bold mb-4">{editingId ? "Editar Equipamento" : "Adicionar Equipamento"}</h2>
-            <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg mx-4 overflow-y-auto max-h-full">
+            <h2 className="text-xl font-bold mb-4">
+              {editingId ? "Editar Equipamento" : "Adicionar Equipamento"}
+            </h2>
+            <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
               
-              <label className="col-span-2">
+              <label className="col-span-1 md:col-span-2">
                 Nome do Equipamento:
-                <input className="border p-2 w-full mt-1" type="text" name="nome" value={equipamentoData.nome} onChange={handleChange} required />
+                <input
+                  className="border p-2 w-full mt-1"
+                  type="text"
+                  name="nome"
+                  value={equipamentoData.nome}
+                  onChange={handleChange}
+                  required
+                />
               </label>
 
               <label>
                 Valor do Equipamento (R$):
-                <input className="border p-2 w-full mt-1" type="number" name="valor" value={equipamentoData.valor} onChange={handleChange} required />
+                <input
+                  className="border p-2 w-full mt-1"
+                  type="number"
+                  name="valor"
+                  value={equipamentoData.valor}
+                  onChange={handleChange}
+                  required
+                />
               </label>
 
               <label>
                 Volume do Balão (L):
-                <input className="border p-2 w-full mt-1" type="number" name="volume_balao" value={equipamentoData.volume_balao} onChange={handleChange} required />
+                <input
+                  className="border p-2 w-full mt-1"
+                  type="number"
+                  name="volume_balao"
+                  value={equipamentoData.volume_balao}
+                  onChange={handleChange}
+                  required
+                />
               </label>
 
               <label>
                 Capacidade de Produção (m³/h):
-                <input className="border p-2 w-full mt-1" type="number" name="capacidade_producao_hora" value={equipamentoData.capacidade_producao_hora} onChange={handleChange} required />
+                <input
+                  className="border p-2 w-full mt-1"
+                  type="number"
+                  name="capacidade_producao_hora"
+                  value={equipamentoData.capacidade_producao_hora}
+                  onChange={handleChange}
+                  required
+                />
               </label>
 
               <label>
                 Tanque de Diesel (L):
-                <input className="border p-2 w-full mt-1" type="number" name="capacidade_tanque_diesel" value={equipamentoData.capacidade_tanque_diesel} onChange={handleChange} required />
+                <input
+                  className="border p-2 w-full mt-1"
+                  type="number"
+                  name="capacidade_tanque_diesel"
+                  value={equipamentoData.capacidade_tanque_diesel}
+                  onChange={handleChange}
+                  required
+                />
               </label>
 
               <label>
-              Capacidade Óleo Motor (L):
-                <input className="border p-2 w-full mt-1" type="number" name="capacidade_oleo_motor" value={equipamentoData.capacidade_oleo_motor} onChange={handleChange} required />
+                Capacidade Óleo Motor (L):
+                <input
+                  className="border p-2 w-full mt-1"
+                  type="number"
+                  name="capacidade_oleo_motor"
+                  value={equipamentoData.capacidade_oleo_motor}
+                  onChange={handleChange}
+                  required
+                />
               </label>
 
               <label>
-              Capacidade Óleo Hidráulico (L):
-                <input className="border p-2 w-full mt-1" type="number" name="capacidade_oleo_hidraulico" value={equipamentoData.capacidade_oleo_hidraulico} onChange={handleChange} required />
+                Capacidade Óleo Hidráulico (L):
+                <input
+                  className="border p-2 w-full mt-1"
+                  type="number"
+                  name="capacidade_oleo_hidraulico"
+                  value={equipamentoData.capacidade_oleo_hidraulico}
+                  onChange={handleChange}
+                  required
+                />
               </label>
 
               <label>
-              Capacidade Óleo Redutor (L):
-                <input className="border p-2 w-full mt-1" type="number" name="capacidade_oleo_redutor" value={equipamentoData.capacidade_oleo_redutor} onChange={handleChange} required />
+                Capacidade Óleo Redutor (L):
+                <input
+                  className="border p-2 w-full mt-1"
+                  type="number"
+                  name="capacidade_oleo_redutor"
+                  value={equipamentoData.capacidade_oleo_redutor}
+                  onChange={handleChange}
+                  required
+                />
               </label>
 
               <label>
-              Capacidade Fluídos de Freios (L):
-                <input className="border p-2 w-full mt-1" type="number" name="fluido_freios" value={equipamentoData.fluido_freios} onChange={handleChange} required />
+                Capacidade Fluídos de Freios (L):
+                <input
+                  className="border p-2 w-full mt-1"
+                  type="number"
+                  name="fluido_freios"
+                  value={equipamentoData.fluido_freios}
+                  onChange={handleChange}
+                  required
+                />
               </label>
 
               <label>
-              Capacidade Graxa (L):
-                <input className="border p-2 w-full mt-1" type="number" name="graxa" value={equipamentoData.graxa} onChange={handleChange} required />
+                Capacidade Graxa (L):
+                <input
+                  className="border p-2 w-full mt-1"
+                  type="number"
+                  name="graxa"
+                  value={equipamentoData.graxa}
+                  onChange={handleChange}
+                  required
+                />
               </label>
 
-              <label className="col-span-2">
+              <label className="col-span-1 md:col-span-2">
                 Descrição:
-                <textarea className="border p-2 w-full mt-1" name="descricao" value={equipamentoData.descricao} onChange={handleChange} required />
+                <textarea
+                  className="border p-2 w-full mt-1"
+                  name="descricao"
+                  value={equipamentoData.descricao}
+                  onChange={handleChange}
+                  required
+                />
               </label>
 
-
-
-              <label className="col-span-2">
+              <label className="col-span-1 md:col-span-2">
                 Imagem do Equipamento:
-                <input className="border p-2 w-full mt-1" type="file" name="imagem" onChange={handleFileChange} accept="image/*" />
+                <input
+                  className="border p-2 w-full mt-1"
+                  type="file"
+                  name="imagem"
+                  onChange={handleFileChange}
+                  accept="image/*"
+                />
               </label>
 
-              
-
-              <button className="bg-green-500 text-white px-4 py-2 col-span-2 rounded">Salvar</button>
-              <button className="bg-red-500 text-white px-4 py-2 col-span-2 rounded" onClick={() => setShowModal(false)}>Cancelar</button>
+              <button className="bg-green-500 text-white px-4 py-2 col-span-1 md:col-span-2 rounded" type="submit">
+                Salvar
+              </button>
+              <button
+                className="bg-red-500 text-white px-4 py-2 col-span-1 md:col-span-2 rounded"
+                type="button"
+                onClick={() => setShowModal(false)}
+              >
+                Cancelar
+              </button>
             </form>
           </div>
         </div>
       )}
 
-      {/* 📌 Lista de Equipamentos */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {equipamentos.map((equipamento) => (
           <div key={equipamento._id} className="border rounded-lg shadow-md p-4 bg-white">
@@ -236,12 +339,21 @@ function EquipamentosAdmin() {
             <p><strong>Capacidade Óleo Hidráulico:</strong> {equipamento.capacidade_oleo_hidraulico} L</p>
             <p><strong>Capacidade Óleo Redutor:</strong> {equipamento.capacidade_oleo_redutor} L</p>
             <p><strong>Capacidade Fluídos de Freios:</strong> {equipamento.fluido_freios} L</p>
-            <p><strong>Capacidade Graxa:</strong> {equipamento.graxa} KG</p> 
-               
-           
+            <p><strong>Capacidade Graxa:</strong> {equipamento.graxa} KG</p>
+            
             <div className="flex justify-between mt-4">
-              <button className="bg-blue-500 text-white px-2 py-1 rounded" onClick={() => handleEdit(equipamento)}>✏️ Editar</button>
-              <button className="bg-red-500 text-white px-2 py-1 rounded" onClick={() => handleDelete(equipamento._id)}>🗑️ Excluir</button>
+              <button
+                className="bg-blue-500 text-white px-2 py-1 rounded"
+                onClick={() => handleEdit(equipamento)}
+              >
+                ✏️ Editar
+              </button>
+              <button
+                className="bg-red-500 text-white px-2 py-1 rounded"
+                onClick={() => handleDelete(equipamento._id)}
+              >
+                🗑️ Excluir
+              </button>
             </div>
           </div>
         ))}
