@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-function AnaliseConcreto() {
+function Analise() {
   const [equipamentos, setEquipamentos] = useState([]);
   const [selectedEquip, setSelectedEquip] = useState("");
   const [costs, setCosts] = useState({
