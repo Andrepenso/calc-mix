@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const path = require("path");
+const path = require("path"); // 🔹 Importação do `path`
 require("dotenv").config();
 
 const equipamentoRoutes = require("./routes/equipamentoRoutes");
@@ -13,11 +13,6 @@ const app = express();
 // 📌 Middlewares globais
 app.use(express.json());
 app.use(cors());
-
-// Rotas da API
-app.use("/api/auth", authRoutes);
-app.use("/api/equipamentos", equipamentoRoutes);  // 🔹 Certifique-se de que essa linha está correta
-app.use("/api/tracos", tracoRoutes);
 
 // 📂 Servir imagens estáticas
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
@@ -33,9 +28,12 @@ app.use("/api/auth", authRoutes);
 app.use("/api/equipamentos", equipamentoRoutes);
 app.use("/api/tracos", tracoRoutes);
 
-// 📌 Rota raiz para indicar que a API está funcionando
-app.get("/", (req, res) => {
-  res.send("✅ API funcionando! Acesse /api/equipamentos para ver os dados.");
+// 📌 Servir o frontend no backend 🔥
+const frontendPath = path.join(__dirname, "../frontend/dist");
+app.use(express.static(frontendPath));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(frontendPath, "index.html"));
 });
 
 // 📌 Criar admin automaticamente
