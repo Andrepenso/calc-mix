@@ -156,15 +156,44 @@ function EquipamentosAdmin() {
                 <input className="border p-2 w-full mt-1" type="number" name="capacidade_tanque_diesel" value={equipamentoData.capacidade_tanque_diesel} onChange={handleChange} required />
               </label>
 
-              <label className="col-span-2">
-                Imagem do Equipamento:
-                <input className="border p-2 w-full mt-1" type="file" name="imagem" onChange={handleFileChange} accept="image/*" />
+              <label>
+              Capacidade Óleo Motor (L):
+                <input className="border p-2 w-full mt-1" type="number" name="capacidade_oleo_motor" value={equipamentoData.capacidade_oleo_motor} onChange={handleChange} required />
+              </label>
+
+              <label>
+              Capacidade Óleo Hidráulico (L):
+                <input className="border p-2 w-full mt-1" type="number" name="capacidade_oleo_motor" value={equipamentoData.capacidade_oleo_hidraulico} onChange={handleChange} required />
+              </label>
+
+              <label>
+              Capacidade Óleo Redutor (L):
+                <input className="border p-2 w-full mt-1" type="number" name="capacidade_oleo_motor" value={equipamentoData.capacidade_oleo_redutor} onChange={handleChange} required />
+              </label>
+
+              <label>
+              Capacidade Fluídos de Freios (L):
+                <input className="border p-2 w-full mt-1" type="number" name="capacidade_oleo_motor" value={equipamentoData.fluido_freios} onChange={handleChange} required />
+              </label>
+
+              <label>
+              Capacidade Graxa (L):
+                <input className="border p-2 w-full mt-1" type="number" name="capacidade_oleo_motor" value={equipamentoData.graxa} onChange={handleChange} required />
               </label>
 
               <label className="col-span-2">
                 Descrição:
                 <textarea className="border p-2 w-full mt-1" name="descricao" value={equipamentoData.descricao} onChange={handleChange} required />
               </label>
+
+
+
+              <label className="col-span-2">
+                Imagem do Equipamento:
+                <input className="border p-2 w-full mt-1" type="file" name="imagem" onChange={handleFileChange} accept="image/*" />
+              </label>
+
+              
 
               <button className="bg-green-500 text-white px-4 py-2 col-span-2 rounded">Salvar</button>
               <button className="bg-red-500 text-white px-4 py-2 col-span-2 rounded" onClick={() => setShowModal(false)}>Cancelar</button>
