@@ -98,7 +98,20 @@ function EquipamentosAdmin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Confirmação antes de salvar o equipamento
+    // Verifica se já existe um equipamento com o mesmo nome (ignora case)
+    const nomeEquipamento = equipamentoData.nome.trim().toLowerCase();
+    const equipamentoDuplicado = equipamentos.some(
+      (equip) =>
+        equip.nome.trim().toLowerCase() === nomeEquipamento &&
+        (editingId ? equip._id !== editingId : true)
+    );
+
+    if (equipamentoDuplicado) {
+      alert("Já existe um equipamento com esse nome. Por favor, escolha outro nome.");
+      return;
+    }
+
+    // Confirmação antes de salvar
     if (!window.confirm("Deseja salvar esse equipamento?")) {
       return;
     }
@@ -106,7 +119,7 @@ function EquipamentosAdmin() {
     try {
       const formData = new FormData();
       
-      // Adicionando apenas campos preenchidos
+      // Adiciona somente campos preenchidos
       Object.keys(equipamentoData).forEach((key) => {
         if (equipamentoData[key]) {
           formData.append(key, equipamentoData[key]);
@@ -129,6 +142,7 @@ function EquipamentosAdmin() {
         });
       }
   
+      // Limpar formulário
       setEquipamentoData({
         nome: "",
         volume_balao: "",

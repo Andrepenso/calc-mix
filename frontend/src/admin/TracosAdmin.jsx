@@ -37,6 +37,18 @@ function TracosAdmin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Verifica se já existe um traço com o mesmo nome (ignora case)
+    const nomeTraço = tracoData.nome.trim().toLowerCase();
+    const traçoDuplicado = tracos.some(
+      (traco) =>
+        traco.nome.trim().toLowerCase() === nomeTraço &&
+        (editingId ? traco._id !== editingId : true)
+    );
+    if (traçoDuplicado) {
+      alert("Já existe um traço com esse nome. Por favor, escolha outro nome.");
+      return;
+    }
+
     // Confirmação antes de salvar (opcional)
     if (!window.confirm(editingId ? "Salvar alterações do traço?" : "Adicionar novo traço?")) {
       return;
