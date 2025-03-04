@@ -20,7 +20,7 @@ function Home() {
         <p className="mt-4 text-lg max-w-2xl text-gray-300">
           Compare equipamentos e produça seu concreto!.
         </p>
-        <Link to="/analise" className="mt-6 bg-yellow-500 text-gray-900 px-6 py-3 rounded-lg shadow-md hover:bg-yellow-600 transition font-bold text-lg">
+        <Link to="/home" className="mt-6 bg-yellow-500 text-gray-900 px-6 py-3 rounded-lg shadow-md hover:bg-yellow-600 transition font-bold text-lg">
           Comece Agora 🚀
         </Link>
       </div>
