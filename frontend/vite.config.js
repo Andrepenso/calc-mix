@@ -14,5 +14,5 @@ export default defineConfig({
       '@': '/src',
     },
   },
-  base: '/', // 🔹 IMPORTANTE: Garante que todas as páginas sejam acessíveis
+  base: '/', // 🔹 IMPORTANTE PARA O RENDER
 });
