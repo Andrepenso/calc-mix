@@ -198,14 +198,21 @@ function EquipamentosAdmin() {
                 Valor do Equipamento (R$):
                 <input
                   className="border p-2 w-full mt-1"
-                  type="number"
+                  type="text"
                   name="valor"
                   value={equipamentoData.valor}
                   onChange={handleChange}
                   onBlur={(e) => {
-                    const value = parseFloat(e.target.value);
+                    // Remove qualquer formatação anterior e converte para número
+                    const rawValue = e.target.value.replace(/\./g, '').replace(',', '.');
+                    const value = parseFloat(rawValue);
                     if (!isNaN(value)) {
-                      setEquipamentoData({ ...equipamentoData, valor: value.toFixed(2) });
+                      // Formata para pt-BR: milhares com ponto e decimal com vírgula
+                      const formatted = value.toLocaleString('pt-BR', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      });
+                      setEquipamentoData({ ...equipamentoData, valor: formatted });
                     }
                   }}
                   required
