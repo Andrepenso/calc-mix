@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const path = require("path"); // 🔹 Importação do `path`
+const path = require("path");
 require("dotenv").config();
 
 const equipamentoRoutes = require("./routes/equipamentoRoutes");
@@ -27,6 +27,11 @@ mongoose
 app.use("/api/auth", authRoutes);
 app.use("/api/equipamentos", equipamentoRoutes);
 app.use("/api/tracos", tracoRoutes);
+
+// 📌 Rota raiz para indicar que a API está funcionando
+app.get("/", (req, res) => {
+  res.send("✅ API funcionando! Acesse /api/equipamentos para ver os dados.");
+});
 
 // 📌 Criar admin automaticamente
 const User = require("./models/User");
