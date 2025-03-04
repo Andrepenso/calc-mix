@@ -6,7 +6,7 @@ import EquipamentosPublico from "./pages/EquipamentosPublico";
 import Analise from "./pages/Analise";
 import Login from "./pages/Login";
 import EquipamentosAdmin from "./admin/EquipamentosAdmin";
-import TracosAdmin from "./admin/TRacosAdmin";
+import TracosAdmin from "./admin/TracosAdmin";
 import Dashboard from "./admin/Dashboard";
 
 function App() {
