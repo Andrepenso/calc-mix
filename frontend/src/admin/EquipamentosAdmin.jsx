@@ -27,7 +27,8 @@ function EquipamentosAdmin() {
 
   const fetchEquipamentos = async () => {
     try {
-      const response = await axios.get('${import.meta.env.VITE_API_URL}/api/equipamentos');
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/equipamentos`
+);
       setEquipamentos(response.data);
     } catch (error) {
       console.error("Erro ao buscar equipamentos", error);
@@ -60,7 +61,8 @@ function EquipamentosAdmin() {
           },
         });
       } else {
-        await axios.post('${import.meta.env.VITE_API_URL}/api/equipamentos', formData, {
+        await axios.post(`${import.meta.env.VITE_API_URL}/api/equipamentos`
+, formData, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",

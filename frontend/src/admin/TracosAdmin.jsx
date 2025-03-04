@@ -22,7 +22,7 @@ function TracosAdmin() {
 
   const fetchTracos = async () => {
     try {
-      const response = await axios.get('${import.meta.env.VITE_API_URL}/api/tracos');
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/tracos`);
       setTracos(response.data);
     } catch (error) {
       console.error("Erro ao buscar traços", error);
@@ -45,7 +45,7 @@ function TracosAdmin() {
           { headers: { Authorization: `Bearer ${token}` } }
         );
       } else {
-        await axios.post('${import.meta.env.VITE_API_URL}/api/tracos', tracoData, {
+        await axios.post(`${import.meta.env.VITE_API_URL}/api/tracos`, tracoData, {
           headers: { Authorization: `Bearer ${token}` },
         });
       }

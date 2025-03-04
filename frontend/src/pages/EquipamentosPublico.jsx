@@ -5,7 +5,7 @@ function EquipamentosPublico() {
   const [equipamentos, setEquipamentos] = useState([]);
 
   useEffect(() => {
-    axios.get('${import.meta.env.VITE_API_URL}/api/equipamentos')
+    axios.get(`${import.meta.env.VITE_API_URL}/api/equipamentos`)
       .then(response => setEquipamentos(response.data))
       .catch(error => console.error("Erro ao buscar equipamentos", error));
   }, []);
