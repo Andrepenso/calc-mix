@@ -15,6 +15,7 @@ function EquipamentosAdmin() {
     capacidade_oleo_redutor: "",
     fluido_freios: "",
     graxa: "",
+    valor: "",
     descricao: "",
     imagem: null,
   });
@@ -60,8 +61,7 @@ function EquipamentosAdmin() {
           },
         });
       } else {
-        await axios.post(`${import.meta.env.VITE_API_URL}/api/equipamentos`
-, formData, {
+        await axios.post(`${import.meta.env.VITE_API_URL}/api/equipamentos`, formData, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
@@ -79,6 +79,7 @@ function EquipamentosAdmin() {
         capacidade_oleo_redutor: "",
         fluido_freios: "",
         graxa: "",
+        valor: "",
         descricao: "",
         imagem: null,
       });
@@ -93,7 +94,20 @@ function EquipamentosAdmin() {
 
   const handleEdit = (equipamento) => {
     setEditingId(equipamento._id);
-    setEquipamentoData({ ...equipamento, imagem: null });
+    setEquipamentoData({
+      nome: equipamento.nome,
+      volume_balao: equipamento.volume_balao,
+      capacidade_producao_hora: equipamento.capacidade_producao_hora,
+      capacidade_tanque_diesel: equipamento.capacidade_tanque_diesel,
+      capacidade_oleo_motor: equipamento.capacidade_oleo_motor,
+      capacidade_oleo_hidraulico: equipamento.capacidade_oleo_hidraulico,
+      capacidade_oleo_redutor: equipamento.capacidade_oleo_redutor,
+      fluido_freios: equipamento.fluido_freios,
+      graxa: equipamento.graxa,
+      valor: equipamento.valor,
+      descricao: equipamento.descricao,
+      imagem: null, // Limpa a imagem para evitar erro
+    });
     setShowModal(true);
   };
 
@@ -114,9 +128,10 @@ function EquipamentosAdmin() {
     <div className="p-6 pt-24">
       <h1 className="text-2xl font-bold mb-4">⚙️ Gerenciar Equipamentos</h1>
       <button className="bg-green-500 text-white px-4 py-2 rounded mb-4" onClick={() => setShowModal(true)}>
-        + Adicionar Equipamento
+        ➕ Adicionar Equipamento
       </button>
 
+      {/* 🏗️ Modal para adicionar/editar equipamento */}
       {showModal && (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
           <div className="bg-white p-6 rounded-lg shadow-lg w-1/2">
@@ -139,6 +154,31 @@ function EquipamentosAdmin() {
           </div>
         </div>
       )}
+
+      {/* 📌 Lista de Equipamentos */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {equipamentos.map((equipamento) => (
+          <div key={equipamento._id} className="border rounded-lg shadow-md p-4 bg-white">
+            {equipamento.imagem && (
+              <img
+                src={`${import.meta.env.VITE_API_URL}${equipamento.imagem}`}
+                alt={equipamento.nome}
+                className="w-full h-32 object-cover rounded"
+              />
+            )}
+            <h2 className="text-lg font-bold mt-2">{equipamento.nome}</h2>
+            <p className="text-gray-700">{equipamento.descricao}</p>
+            <p><strong>💰 Valor:</strong> R$ {equipamento.valor}</p>
+            <p><strong>Volume do Balão:</strong> {equipamento.volume_balao} L</p>
+            <p><strong>Capacidade Produção:</strong> {equipamento.capacidade_producao_hora} m³/h</p>
+
+            <div className="flex justify-between mt-4">
+              <button className="bg-blue-500 text-white px-2 py-1 rounded" onClick={() => handleEdit(equipamento)}>✏️ Editar</button>
+              <button className="bg-red-500 text-white px-2 py-1 rounded" onClick={() => handleDelete(equipamento._id)}>🗑️ Excluir</button>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

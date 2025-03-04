@@ -1,17 +1,18 @@
 const mongoose = require("mongoose");
 
 const EquipamentoSchema = new mongoose.Schema({
-  nome: String,
-  volume_balao: Number,
-  capacidade_producao_hora: Number,
-  capacidade_tanque_diesel: Number,
-  capacidade_oleo_motor: Number,
-  capacidade_oleo_hidraulico: Number,
-  capacidade_oleo_redutor: Number,
-  fluido_freios: Number,
-  graxa: Number,
-  descricao: String,
-  imagem: String, // Novo campo para armazenar a URL da imagem
+  nome: { type: String, required: true },
+  volume_balao: { type: Number, required: true },
+  capacidade_producao_hora: { type: Number, required: true },
+  capacidade_tanque_diesel: { type: Number, required: true },
+  capacidade_oleo_motor: { type: Number, required: true },
+  capacidade_oleo_hidraulico: { type: Number, required: true },
+  capacidade_oleo_redutor: { type: Number, required: true },
+  fluido_freios: { type: Number, required: true },
+  graxa: { type: Number, required: true },
+  descricao: { type: String, required: true },
+  imagem: { type: String },
+  valor_equipamento: { type: Number, required: true }, 
 });
 
 module.exports = mongoose.model("Equipamento", EquipamentoSchema);

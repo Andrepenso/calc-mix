@@ -20,20 +20,19 @@ const upload = multer({ storage });
 // 📌 Criar um novo equipamento com upload de imagem
 router.post("/", authMiddleware, upload.single("imagem"), async (req, res) => {
   try {
-    console.log("Recebendo requisição para criar equipamento:", req.body);
-
     const novoEquipamento = new Equipamento({
       ...req.body,
-      imagem: req.file ? `/uploads/${req.file.filename}` : null, // Armazena o caminho da imagem
+      valor: req.body.valor, // 💰 Adiciona o valor
+      imagem: req.file ? `/uploads/${req.file.filename}` : null,
     });
 
     await novoEquipamento.save();
     res.status(201).json(novoEquipamento);
   } catch (error) {
-    console.error("Erro ao criar equipamento:", error);
-    res.status(500).json({ error: "Erro interno ao criar equipamento" });
+    res.status(500).json({ error: "Erro ao criar equipamento" });
   }
 });
+
 
 // 📌 Listar todos os equipamentos
 router.get("/", async (req, res) => {
@@ -48,9 +47,10 @@ router.get("/", async (req, res) => {
 // 📌 Editar um equipamento por ID
 router.put("/:id", authMiddleware, upload.single("imagem"), async (req, res) => {
   try {
-    const updateData = { ...req.body };
+    const updateData = { ...req.body, valor: req.body.valor }; // 💰 Atualiza o valor
+
     if (req.file) {
-      updateData.imagem = `/uploads/${req.file.filename}`; // Atualiza a imagem se for enviada
+      updateData.imagem = `/uploads/${req.file.filename}`;
     }
 
     const equipamento = await Equipamento.findByIdAndUpdate(req.params.id, updateData, { new: true });
@@ -59,6 +59,7 @@ router.put("/:id", authMiddleware, upload.single("imagem"), async (req, res) => 
     res.status(500).json({ error: "Erro ao editar equipamento" });
   }
 });
+
 
 // 📌 Deletar um equipamento por ID
 router.delete("/:id", authMiddleware, async (req, res) => {
