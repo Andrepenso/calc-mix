@@ -10,9 +10,9 @@ const EquipamentoSchema = new mongoose.Schema({
   capacidade_oleo_redutor: { type: Number, required: true },
   fluido_freios: { type: Number, required: true },
   graxa: { type: Number, required: true },
-  descricao: { type: String, required: true },
-  imagem: { type: String },
   valor: { type: Number, required: true }, 
+  descricao: { type: String, required: true },
+  imagem: { type: String } // Caminho da imagem (opcional)
 });
 
 module.exports = mongoose.model("Equipamento", EquipamentoSchema);

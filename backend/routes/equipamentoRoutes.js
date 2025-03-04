@@ -17,12 +17,12 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// 📌 Criar um novo equipamento com upload de imagem
+//Criar um novo equipamento com upload de imagem
 router.post("/", authMiddleware, upload.single("imagem"), async (req, res) => {
   try {
     const novoEquipamento = new Equipamento({
       ...req.body,
-      valor: req.body.valor, // 💰 Adiciona o valor
+      valor: req.body.valor, 
       imagem: req.file ? `/uploads/${req.file.filename}` : null,
     });
 
