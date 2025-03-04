@@ -3,14 +3,6 @@ import { Link } from "react-router-dom";
 function Home() {
   return (
     <div className="relative w-full h-screen">
-      {/* Botão de Login fixo no canto superior direito */}
-      <Link
-        to="/login"
-        className="fixed top-4 right-4 bg-blue-500 text-white px-4 py-2 rounded-lg shadow-lg z-50 hover:bg-blue-600 transition"
-      >
-        Login
-      </Link>
-
       {/* Fundo com imagem */}
       <div
         className="absolute inset-0 bg-cover bg-center"
@@ -31,7 +23,7 @@ function Home() {
           Compare equipamentos e produza seu concreto!
         </p>
         <Link
-          to="/home"
+          to="/analise"
           className="mt-6 bg-yellow-500 text-gray-900 px-6 py-3 rounded-lg shadow-md hover:bg-yellow-600 transition font-bold text-lg"
         >
           Comece Agora 🚀
