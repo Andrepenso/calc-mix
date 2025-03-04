@@ -5,7 +5,7 @@ function Tracos() {
   const [tracos, setTracos] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/tracos")
+    axios.get('${import.meta.env.VITE_API_URL}/api/tracos')
       .then(response => setTracos(response.data))
       .catch(error => console.error("Erro ao buscar traços", error));
   }, []);

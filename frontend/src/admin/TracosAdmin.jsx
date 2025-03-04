@@ -22,7 +22,7 @@ function TracosAdmin() {
 
   const fetchTracos = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/tracos");
+      const response = await axios.get('${import.meta.env.VITE_API_URL}/api/tracos');
       setTracos(response.data);
     } catch (error) {
       console.error("Erro ao buscar traços", error);
@@ -40,12 +40,12 @@ function TracosAdmin() {
     try {
       if (editingId) {
         await axios.put(
-          `http://localhost:5000/api/tracos/${editingId}`,
+          `${import.meta.env.VITE_API_URL}/api/tracos/${editingId}`,
           tracoData,
           { headers: { Authorization: `Bearer ${token}` } }
         );
       } else {
-        await axios.post("http://localhost:5000/api/tracos", tracoData, {
+        await axios.post('${import.meta.env.VITE_API_URL}/api/tracos', tracoData, {
           headers: { Authorization: `Bearer ${token}` },
         });
       }
@@ -75,7 +75,7 @@ function TracosAdmin() {
     if (!window.confirm("Tem certeza que deseja excluir este traço?")) return;
 
     try {
-      await axios.delete(`http://localhost:5000/api/tracos/${id}`, {
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/tracos/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       fetchTracos();

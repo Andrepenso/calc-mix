@@ -27,7 +27,7 @@ function EquipamentosAdmin() {
 
   const fetchEquipamentos = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/equipamentos");
+      const response = await axios.get('${import.meta.env.VITE_API_URL}/api/equipamentos');
       setEquipamentos(response.data);
     } catch (error) {
       console.error("Erro ao buscar equipamentos", error);
@@ -53,14 +53,14 @@ function EquipamentosAdmin() {
       });
 
       if (editingId) {
-        await axios.put(`http://localhost:5000/api/equipamentos/${editingId}`, formData, {
+        await axios.put(`${import.meta.env.VITE_API_URL}/api/equipamentos/${editingId}`, formData, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
           },
         });
       } else {
-        await axios.post("http://localhost:5000/api/equipamentos", formData, {
+        await axios.post('${import.meta.env.VITE_API_URL}/api/equipamentos', formData, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
@@ -99,7 +99,7 @@ function EquipamentosAdmin() {
   const handleDelete = async (id) => {
     if (window.confirm("Tem certeza que deseja excluir este equipamento?")) {
       try {
-        await axios.delete(`http://localhost:5000/api/equipamentos/${id}`, {
+        await axios.delete(`${import.meta.env.VITE_API_URL}/api/equipamentos/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         fetchEquipamentos();
