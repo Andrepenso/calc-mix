@@ -8,12 +8,7 @@ const equipamentoRoutes = require("./routes/equipamentoRoutes");
 const tracoRoutes = require("./routes/tracoRoutes");
 const authRoutes = require("./routes/authRoutes");
 
-app.get("/", (req, res) => {
-  res.send("✅ Backend conectado e rodando corretamente!");
-});
-
-
-const app = express();
+const app = express(); // 🔹 Inicializa `app` antes de usá-lo
 
 // 📌 Middlewares globais
 app.use(express.json());
@@ -33,14 +28,6 @@ app.use("/api/auth", authRoutes);
 app.use("/api/equipamentos", equipamentoRoutes);
 app.use("/api/tracos", tracoRoutes);
 
-// 📌 Servir o frontend no backend 🔥
-const frontendPath = path.join(__dirname, "../frontend/dist");
-app.use(express.static(frontendPath));
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(frontendPath, "index.html"));
-});
-
 // 📌 Criar admin automaticamente
 const User = require("./models/User");
 
@@ -58,6 +45,11 @@ const criarUsuarioAdmin = async () => {
   }
 };
 criarUsuarioAdmin();
+
+// 📌 Rota principal para testar se o servidor está rodando
+app.get("/", (req, res) => {
+  res.send("✅ Backend conectado e rodando corretamente!");
+});
 
 // 📌 Iniciar o servidor
 const PORT = process.env.PORT || 5000;
