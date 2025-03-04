@@ -14,5 +14,5 @@ export default defineConfig({
       '@': '/src',
     },
   },
-  base: '/', // 🔹 Garante que as rotas funcionem no Render
+  base: '/', // 🔹 IMPORTANTE: Garante que todas as páginas sejam acessíveis
 });
