@@ -12,7 +12,7 @@ const EquipamentoSchema = new mongoose.Schema({
   graxa: { type: Number, required: true },
   descricao: { type: String, required: true },
   imagem: { type: String },
-  valor_equipamento: { type: Number, required: true }, 
+  valor: { type: Number, required: true }, 
 });
 
 module.exports = mongoose.model("Equipamento", EquipamentoSchema);
