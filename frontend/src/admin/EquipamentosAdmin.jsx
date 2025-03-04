@@ -202,6 +202,12 @@ function EquipamentosAdmin() {
                   name="valor"
                   value={equipamentoData.valor}
                   onChange={handleChange}
+                  onBlur={(e) => {
+                    const value = parseFloat(e.target.value);
+                    if (!isNaN(value)) {
+                      setEquipamentoData({ ...equipamentoData, valor: value.toFixed(2) });
+                    }
+                  }}
                   required
                 />
               </label>
