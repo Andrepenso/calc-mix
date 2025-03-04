@@ -35,7 +35,7 @@ function EquipamentosAdmin() {
     }
   };
 
-  const handleChange = (e) => {
+   const handleChange = (e) => {
     const { name, value } = e.target;
     setEquipamentoData({ ...equipamentoData, [name]: value });
   };
@@ -44,15 +44,39 @@ function EquipamentosAdmin() {
     setEquipamentoData({ ...equipamentoData, imagem: e.target.files[0] });
   };
 
+  const handleEdit = (equipamento) => {
+    setEditingId(equipamento._id);
+    setEquipamentoData({
+      nome: equipamento.nome,
+      volume_balao: equipamento.volume_balao || "",
+      capacidade_producao_hora: equipamento.capacidade_producao_hora || "",
+      capacidade_tanque_diesel: equipamento.capacidade_tanque_diesel || "",
+      capacidade_oleo_motor: equipamento.capacidade_oleo_motor || "",
+      capacidade_oleo_hidraulico: equipamento.capacidade_oleo_hidraulico || "",
+      capacidade_oleo_redutor: equipamento.capacidade_oleo_redutor || "",
+      fluido_freios: equipamento.fluido_freios || "",
+      graxa: equipamento.graxa || "",
+      valor: equipamento.valor || "",
+      descricao: equipamento.descricao || "",
+      imagem: null, // Não carregar a imagem existente
+    });
+    setShowModal(true);
+  };
+  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       const formData = new FormData();
+      
+      // Adicionando apenas campos preenchidos
       Object.keys(equipamentoData).forEach((key) => {
-        formData.append(key, equipamentoData[key]);
+        if (equipamentoData[key]) {
+          formData.append(key, equipamentoData[key]);
+        }
       });
-
+  
       if (editingId) {
         await axios.put(`${import.meta.env.VITE_API_URL}/api/equipamentos/${editingId}`, formData, {
           headers: {
@@ -68,7 +92,7 @@ function EquipamentosAdmin() {
           },
         });
       }
-
+  
       setEquipamentoData({
         nome: "",
         volume_balao: "",
@@ -83,7 +107,7 @@ function EquipamentosAdmin() {
         descricao: "",
         imagem: null,
       });
-
+  
       setEditingId(null);
       setShowModal(false);
       fetchEquipamentos();
@@ -91,6 +115,7 @@ function EquipamentosAdmin() {
       console.error("Erro ao salvar equipamento", error);
     }
   };
+  
 
   return (
     <div className="p-6 pt-24">
@@ -164,12 +189,12 @@ function EquipamentosAdmin() {
             <p><strong>💰 Valor:</strong> R$ {equipamento.valor}</p>
             <p><strong>Volume do Balão:</strong> {equipamento.volume_balao} L</p>
             <p><strong>Capacidade Produção:</strong> {equipamento.capacidade_producao_hora} m³/h</p>
-            <p><strong>Capacidade Tanque de Diesel:</strong> {equipamento.capacidade_tanque_diesel} L/h</p>
-            <p><strong>Capacidade Óleo Motor:</strong> {equipamento.capacidade_oleo_motor} L/h</p>
-            <p><strong>Capacidade Óleo Hidráulico:</strong> {equipamento.capacidade_oleo_hidraulico} L/h</p>
-            <p><strong>Capacidade Óleo Redutor:</strong> {equipamento.capacidade_oleo_redutor} L/h</p>
-            <p><strong>Capacidade Fluídos de Freios:</strong> {equipamento.fluido_freios} L/h</p>
-            <p><strong>Capacidade Graxa:</strong> {equipamento.graxa} L/h</p> 
+            <p><strong>Capacidade Tanque de Diesel:</strong> {equipamento.capacidade_tanque_diesel} L</p>
+            <p><strong>Capacidade Óleo Motor:</strong> {equipamento.capacidade_oleo_motor} L</p>
+            <p><strong>Capacidade Óleo Hidráulico:</strong> {equipamento.capacidade_oleo_hidraulico} L</p>
+            <p><strong>Capacidade Óleo Redutor:</strong> {equipamento.capacidade_oleo_redutor} L</p>
+            <p><strong>Capacidade Fluídos de Freios:</strong> {equipamento.fluido_freios} L</p>
+            <p><strong>Capacidade Graxa:</strong> {equipamento.graxa} KG</p> 
                
            
             <div className="flex justify-between mt-4">
