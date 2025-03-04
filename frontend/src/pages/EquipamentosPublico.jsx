@@ -17,18 +17,25 @@ function EquipamentosPublico() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {equipamentos.map((equipamento) => (
           <div key={equipamento._id} className="bg-white p-4 rounded-lg shadow-md">
+            {equipamento.imagem && (
+              <img
+                src={`${import.meta.env.VITE_API_URL}${equipamento.imagem}`}
+                alt={equipamento.nome}
+                className="w-full h-32 object-cover rounded mb-4"
+              />
+            )}
             <h2 className="text-xl font-bold">{equipamento.nome}</h2>
             <p className="text-gray-600">{equipamento.descricao}</p>
             <ul className="mt-2 text-sm text-gray-700">
-            <p><strong>💰 Valor:</strong> R$ {equipamento.valor}</p>
-            <p><strong>Volume do Balão:</strong> {equipamento.volume_balao} L</p>
-            <p><strong>Capacidade Produção:</strong> {equipamento.capacidade_producao_hora} m³/h</p>
-            <p><strong>Capacidade Tanque de Diesel:</strong> {equipamento.capacidade_tanque_diesel} L/h</p>
-            <p><strong>Capacidade Óleo Motor:</strong> {equipamento.capacidade_oleo_motor} L/h</p>
-            <p><strong>Capacidade Óleo Hidráulico:</strong> {equipamento.capacidade_oleo_hidraulico} L/h</p>
-            <p><strong>Capacidade Óleo Redutor:</strong> {equipamento.capacidade_oleo_redutor} L/h</p>
-            <p><strong>Capacidade Fluídos de Freios:</strong> {equipamento.fluido_freios} L/h</p>
-            <p><strong>Capacidade Graxa:</strong> {equipamento.graxa} L/h</p> 
+              <li><strong>💰 Valor:</strong> R$ {equipamento.valor}</li>
+              <li><strong>Volume do Balão:</strong> {equipamento.volume_balao} L</li>
+              <li><strong>Capacidade Produção:</strong> {equipamento.capacidade_producao_hora} m³/h</li>
+              <li><strong>Capacidade Tanque de Diesel:</strong> {equipamento.capacidade_tanque_diesel} L/h</li>
+              <li><strong>Capacidade Óleo Motor:</strong> {equipamento.capacidade_oleo_motor} L/h</li>
+              <li><strong>Capacidade Óleo Hidráulico:</strong> {equipamento.capacidade_oleo_hidraulico} L/h</li>
+              <li><strong>Capacidade Óleo Redutor:</strong> {equipamento.capacidade_oleo_redutor} L/h</li>
+              <li><strong>Capacidade Fluídos de Freios:</strong> {equipamento.fluido_freios} L/h</li>
+              <li><strong>Capacidade Graxa:</strong> {equipamento.graxa} L/h</li>
             </ul>
           </div>
         ))}

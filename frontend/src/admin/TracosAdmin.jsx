@@ -4,6 +4,7 @@ import axios from "axios";
 function TracosAdmin() {
   const [tracos, setTracos] = useState([]);
   const [editingId, setEditingId] = useState(null);
+  const [showModal, setShowModal] = useState(false);
   const [tracoData, setTracoData] = useState({
     nome: "",
     descricao: "",
@@ -35,7 +36,11 @@ function TracosAdmin() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!window.confirm(editingId ? "Salvar alterações?" : "Adicionar novo traço?")) return;
+
+    // Confirmação antes de salvar (opcional)
+    if (!window.confirm(editingId ? "Salvar alterações do traço?" : "Adicionar novo traço?")) {
+      return;
+    }
 
     try {
       if (editingId) {
@@ -50,6 +55,7 @@ function TracosAdmin() {
         });
       }
 
+      // Resetar o formulário
       setTracoData({
         nome: "",
         descricao: "",
@@ -60,6 +66,7 @@ function TracosAdmin() {
         quantidade_aditivo: "",
       });
       setEditingId(null);
+      setShowModal(false);
       fetchTracos();
     } catch (error) {
       console.error("Erro ao salvar traço", error);
@@ -69,6 +76,7 @@ function TracosAdmin() {
   const handleEdit = (traco) => {
     setEditingId(traco._id);
     setTracoData({ ...traco });
+    setShowModal(true);
   };
 
   const handleDelete = async (id) => {
@@ -84,23 +92,144 @@ function TracosAdmin() {
     }
   };
 
+  // Abre o modal para adicionar um novo traço
+  const handleAddNew = () => {
+    setEditingId(null);
+    setTracoData({
+      nome: "",
+      descricao: "",
+      quantidade_cimento: "",
+      quantidade_areia: "",
+      quantidade_brita: "",
+      quantidade_agua: "",
+      quantidade_aditivo: "",
+    });
+    setShowModal(true);
+  };
+
   return (
     <div className="p-6 pt-24">
       <h1 className="text-2xl font-bold mb-4">🔩 Gerenciar Traços</h1>
+      
+      {/* Botão para abrir o modal de criação */}
+      <button
+        className="bg-green-500 text-white px-4 py-2 rounded mb-4"
+        onClick={handleAddNew}
+      >
+        ➕ Adicionar Novo Traço
+      </button>
 
-      <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4 mb-4">
-        <input className="border p-2" type="text" name="nome" placeholder="Nome" value={tracoData.nome} onChange={handleChange} required />
-        <input className="border p-2" type="text" name="descricao" placeholder="Descrição" value={tracoData.descricao} onChange={handleChange} required />
-        <input className="border p-2" type="number" name="quantidade_cimento" placeholder="Cimento (kg)" value={tracoData.quantidade_cimento} onChange={handleChange} required />
-        <input className="border p-2" type="number" name="quantidade_areia" placeholder="Areia (kg)" value={tracoData.quantidade_areia} onChange={handleChange} required />
-        <input className="border p-2" type="number" name="quantidade_brita" placeholder="Brita (kg)" value={tracoData.quantidade_brita} onChange={handleChange} required />
-        <input className="border p-2" type="number" name="quantidade_agua" placeholder="Água (L)" value={tracoData.quantidade_agua} onChange={handleChange} required />
-        <input className="border p-2" type="number" name="quantidade_aditivo" placeholder="Aditivo (L)" value={tracoData.quantidade_aditivo} onChange={handleChange} required />
-        <button className="bg-green-500 text-white px-4 py-2 rounded col-span-2">
-          {editingId ? "Salvar Alteração" : "Adicionar"}
-        </button>
-      </form>
+      {/* Modal para adicionar/editar traço */}
+      {showModal && (
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg mx-4 overflow-y-auto max-h-full">
+            <h2 className="text-xl font-bold mb-4">
+              {editingId ? "Editar Traço" : "Adicionar Traço"}
+            </h2>
+            <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <label className="col-span-1 md:col-span-2">
+                Nome do Traço:
+                <input
+                  className="border p-2 w-full mt-1"
+                  type="text"
+                  name="nome"
+                  value={tracoData.nome}
+                  onChange={handleChange}
+                  required
+                />
+              </label>
 
+              <label className="col-span-1 md:col-span-2">
+                Descrição:
+                <input
+                  className="border p-2 w-full mt-1"
+                  type="text"
+                  name="descricao"
+                  value={tracoData.descricao}
+                  onChange={handleChange}
+                  required
+                />
+              </label>
+
+              <label>
+                Cimento (kg):
+                <input
+                  className="border p-2 w-full mt-1"
+                  type="number"
+                  name="quantidade_cimento"
+                  value={tracoData.quantidade_cimento}
+                  onChange={handleChange}
+                  required
+                />
+              </label>
+
+              <label>
+                Areia (kg):
+                <input
+                  className="border p-2 w-full mt-1"
+                  type="number"
+                  name="quantidade_areia"
+                  value={tracoData.quantidade_areia}
+                  onChange={handleChange}
+                  required
+                />
+              </label>
+
+              <label>
+                Brita (kg):
+                <input
+                  className="border p-2 w-full mt-1"
+                  type="number"
+                  name="quantidade_brita"
+                  value={tracoData.quantidade_brita}
+                  onChange={handleChange}
+                  required
+                />
+              </label>
+
+              <label>
+                Água (L):
+                <input
+                  className="border p-2 w-full mt-1"
+                  type="number"
+                  name="quantidade_agua"
+                  value={tracoData.quantidade_agua}
+                  onChange={handleChange}
+                  required
+                />
+              </label>
+
+              <label className="col-span-1 md:col-span-2">
+                Aditivo (L):
+                <input
+                  className="border p-2 w-full mt-1"
+                  type="number"
+                  name="quantidade_aditivo"
+                  value={tracoData.quantidade_aditivo}
+                  onChange={handleChange}
+                  required
+                />
+              </label>
+
+              <button
+                className="bg-green-500 text-white px-4 py-2 rounded col-span-1 md:col-span-2"
+                type="submit"
+              >
+                {editingId ? "Salvar Alteração" : "Adicionar Traço"}
+              </button>
+              <button
+                className="bg-red-500 text-white px-4 py-2 rounded col-span-1 md:col-span-2"
+                type="button"
+                onClick={() => setShowModal(false)}
+              >
+                Cancelar
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Lista de Traços */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {tracos.map((traco) => (
           <div key={traco._id} className="bg-white p-4 rounded-lg shadow-md">
@@ -114,8 +243,18 @@ function TracosAdmin() {
               <li><strong>Aditivo:</strong> {traco.quantidade_aditivo} L</li>
             </ul>
             <div className="mt-4 flex justify-between">
-              <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={() => handleEdit(traco)}>✏️ Editar</button>
-              <button className="bg-red-500 text-white px-4 py-2 rounded" onClick={() => handleDelete(traco._id)}>🗑️ Excluir</button>
+              <button
+                className="bg-blue-500 text-white px-4 py-2 rounded"
+                onClick={() => handleEdit(traco)}
+              >
+                ✏️ Editar
+              </button>
+              <button
+                className="bg-red-500 text-white px-4 py-2 rounded"
+                onClick={() => handleDelete(traco._id)}
+              >
+                🗑️ Excluir
+              </button>
             </div>
           </div>
         ))}

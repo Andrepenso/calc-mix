@@ -97,10 +97,16 @@ function EquipamentosAdmin() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Confirmação antes de salvar o equipamento
+    if (!window.confirm("Deseja salvar esse equipamento?")) {
+      return;
+    }
   
     try {
       const formData = new FormData();
       
+      // Adicionando apenas campos preenchidos
       Object.keys(equipamentoData).forEach((key) => {
         if (equipamentoData[key]) {
           formData.append(key, equipamentoData[key]);
