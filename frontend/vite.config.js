@@ -7,7 +7,12 @@ export default defineConfig({
     port: 5173,
   },
   build: {
-    outDir: "dist",
+    outDir: 'dist',
   },
-  base: "/",
+  resolve: {
+    alias: {
+      '@': '/src',
+    },
+  },
+  base: '/', // 🔹 Garante que as rotas funcionem no Render
 });
