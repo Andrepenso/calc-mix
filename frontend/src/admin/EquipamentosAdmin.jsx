@@ -163,22 +163,22 @@ function EquipamentosAdmin() {
 
               <label>
               Capacidade Óleo Hidráulico (L):
-                <input className="border p-2 w-full mt-1" type="number" name="capacidade_oleo_motor" value={equipamentoData.capacidade_oleo_hidraulico} onChange={handleChange} required />
+                <input className="border p-2 w-full mt-1" type="number" name="capacidade_oleo_hidraulico" value={equipamentoData.capacidade_oleo_hidraulico} onChange={handleChange} required />
               </label>
 
               <label>
               Capacidade Óleo Redutor (L):
-                <input className="border p-2 w-full mt-1" type="number" name="capacidade_oleo_motor" value={equipamentoData.capacidade_oleo_redutor} onChange={handleChange} required />
+                <input className="border p-2 w-full mt-1" type="number" name="capacidade_oleo_redutor" value={equipamentoData.capacidade_oleo_redutor} onChange={handleChange} required />
               </label>
 
               <label>
               Capacidade Fluídos de Freios (L):
-                <input className="border p-2 w-full mt-1" type="number" name="capacidade_oleo_motor" value={equipamentoData.fluido_freios} onChange={handleChange} required />
+                <input className="border p-2 w-full mt-1" type="number" name="fluido_freios" value={equipamentoData.fluido_freios} onChange={handleChange} required />
               </label>
 
               <label>
               Capacidade Graxa (L):
-                <input className="border p-2 w-full mt-1" type="number" name="capacidade_oleo_motor" value={equipamentoData.graxa} onChange={handleChange} required />
+                <input className="border p-2 w-full mt-1" type="number" name="graxa" value={equipamentoData.graxa} onChange={handleChange} required />
               </label>
 
               <label className="col-span-2">
