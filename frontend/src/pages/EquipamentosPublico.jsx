@@ -20,14 +20,15 @@ function EquipamentosPublico() {
             <h2 className="text-xl font-bold">{equipamento.nome}</h2>
             <p className="text-gray-600">{equipamento.descricao}</p>
             <ul className="mt-2 text-sm text-gray-700">
-              <li><strong>Volume do Balão:</strong> {equipamento.volume_balao} m³</li>
-              <li><strong>Capacidade Produção:</strong> {equipamento.capacidade_producao_hora} m³/h</li>
-              <li><strong>Tanque de Diesel:</strong> {equipamento.capacidade_tanque_diesel} L</li>
-              <li><strong>Óleo Motor:</strong> {equipamento.capacidade_oleo_motor} L</li>
-              <li><strong>Óleo Hidráulico:</strong> {equipamento.capacidade_oleo_hidraulico} L</li>
-              <li><strong>Óleo Redutor:</strong> {equipamento.capacidade_oleo_redutor} L</li>
-              <li><strong>Fluido de Freios:</strong> {equipamento.fluido_freios} L</li>
-              <li><strong>Graxa:</strong> {equipamento.graxa} g</li>
+            <p><strong>💰 Valor:</strong> R$ {equipamento.valor}</p>
+            <p><strong>Volume do Balão:</strong> {equipamento.volume_balao} L</p>
+            <p><strong>Capacidade Produção:</strong> {equipamento.capacidade_producao_hora} m³/h</p>
+            <p><strong>Capacidade Tanque de Diesel:</strong> {equipamento.capacidade_tanque_diesel} L/h</p>
+            <p><strong>Capacidade Óleo Motor:</strong> {equipamento.capacidade_oleo_motor} L/h</p>
+            <p><strong>Capacidade Óleo Hidráulico:</strong> {equipamento.capacidade_oleo_hidraulico} L/h</p>
+            <p><strong>Capacidade Óleo Redutor:</strong> {equipamento.capacidade_oleo_redutor} L/h</p>
+            <p><strong>Capacidade Fluídos de Freios:</strong> {equipamento.fluido_freios} L/h</p>
+            <p><strong>Capacidade Graxa:</strong> {equipamento.graxa} L/h</p> 
             </ul>
           </div>
         ))}

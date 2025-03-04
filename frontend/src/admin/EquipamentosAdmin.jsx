@@ -164,7 +164,14 @@ function EquipamentosAdmin() {
             <p><strong>💰 Valor:</strong> R$ {equipamento.valor}</p>
             <p><strong>Volume do Balão:</strong> {equipamento.volume_balao} L</p>
             <p><strong>Capacidade Produção:</strong> {equipamento.capacidade_producao_hora} m³/h</p>
-
+            <p><strong>Capacidade Tanque de Diesel:</strong> {equipamento.capacidade_tanque_diesel} L/h</p>
+            <p><strong>Capacidade Óleo Motor:</strong> {equipamento.capacidade_oleo_motor} L/h</p>
+            <p><strong>Capacidade Óleo Hidráulico:</strong> {equipamento.capacidade_oleo_hidraulico} L/h</p>
+            <p><strong>Capacidade Óleo Redutor:</strong> {equipamento.capacidade_oleo_redutor} L/h</p>
+            <p><strong>Capacidade Fluídos de Freios:</strong> {equipamento.fluido_freios} L/h</p>
+            <p><strong>Capacidade Graxa:</strong> {equipamento.graxa} L/h</p> 
+               
+           
             <div className="flex justify-between mt-4">
               <button className="bg-blue-500 text-white px-2 py-1 rounded" onClick={() => handleEdit(equipamento)}>✏️ Editar</button>
               <button className="bg-red-500 text-white px-2 py-1 rounded" onClick={() => handleDelete(equipamento._id)}>🗑️ Excluir</button>
