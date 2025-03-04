@@ -2,28 +2,21 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 function Analise() {
-  // Estados para equipamentos e traços
   const [equipamentos, setEquipamentos] = useState([]);
   const [tracos, setTracos] = useState([]);
-
-  // Estados para o equipamento e o traço selecionados
   const [selectedEquip, setSelectedEquip] = useState("");
   const [selectedTraco, setSelectedTraco] = useState("");
-
-  // Custos informados pelo usuário (por unidade)
   const [costs, setCosts] = useState({
     areia: "",
     agua: "",
     cimento: "",
     brita: "",
     aditivo: "",
-    concretoUsinado: "", // opcional para comparar custo de comprar pronto
+    concretoUsinado: "",
   });
-
-  // Resultado do cálculo
   const [result, setResult] = useState(null);
 
-  // 1. Buscar equipamentos e traços do back-end ao montar o componente
+  // Buscar equipamentos e traços do back-end
   useEffect(() => {
     fetchEquipamentos();
     fetchTracos();
@@ -47,37 +40,46 @@ function Analise() {
     }
   };
 
-  // 2. Atualizar o equipamento selecionado
+  // Atualizar o equipamento selecionado
   const handleChangeEquip = (e) => {
     setSelectedEquip(e.target.value);
   };
 
-  // 3. Atualizar o traço selecionado
+  // Atualizar o traço selecionado
   const handleChangeTraco = (e) => {
     setSelectedTraco(e.target.value);
   };
 
-  // 4. Atualizar valores de custo conforme o usuário digita
+  // Atualizar valores de custo conforme o usuário digita
   const handleChangeCost = (e) => {
     setCosts({ ...costs, [e.target.name]: e.target.value });
   };
 
-  // 5. Lógica para calcular o custo total
+  // Lógica para calcular ou enviar os dados
   const handleCalculate = () => {
-    // Verifica se um traço foi selecionado
+    if (!selectedEquip) {
+      alert("Por favor, selecione um equipamento.");
+      return;
+    }
     if (!selectedTraco) {
       alert("Por favor, selecione um traço de concreto.");
       return;
     }
 
-    // Encontra o traço escolhido no array de traços
+    // Encontrar o equipamento e o traço selecionados
+    const equipEscolhido = equipamentos.find((e) => e._id === selectedEquip);
     const tracoEscolhido = tracos.find((t) => t._id === selectedTraco);
+
+    if (!equipEscolhido) {
+      alert("Equipamento inválido. Selecione outro.");
+      return;
+    }
     if (!tracoEscolhido) {
-      alert("Traço inválido. Selecione outro traço.");
+      alert("Traço inválido. Selecione outro.");
       return;
     }
 
-    // Quantidades do traço (ajuste se seus campos tiverem outros nomes)
+    // Quantidades do traço (ajuste se os nomes forem diferentes)
     const {
       quantidade_cimento,
       quantidade_areia,
@@ -86,27 +88,26 @@ function Analise() {
       quantidade_aditivo,
     } = tracoEscolhido;
 
-    // Custos unitários informados pelo usuário (transforma em número, se vazio vira 0)
+    // Custos unitários informados pelo usuário
     const custoCimento = parseFloat(costs.cimento) || 0;
     const custoAreia = parseFloat(costs.areia) || 0;
     const custoBrita = parseFloat(costs.brita) || 0;
     const custoAgua = parseFloat(costs.agua) || 0;
     const custoAditivo = parseFloat(costs.aditivo) || 0;
-    const custoUsinado = parseFloat(costs.concretoUsinado) || 0; // opcional
+    const custoUsinado = parseFloat(costs.concretoUsinado) || 0;
 
-    // Multiplica a quantidade do traço pelo custo unitário
+    // Cálculo do custo de produção própria
     const totalCimento = (parseFloat(quantidade_cimento) || 0) * custoCimento;
     const totalAreia = (parseFloat(quantidade_areia) || 0) * custoAreia;
     const totalBrita = (parseFloat(quantidade_brita) || 0) * custoBrita;
     const totalAgua = (parseFloat(quantidade_agua) || 0) * custoAgua;
     const totalAditivo = (parseFloat(quantidade_aditivo) || 0) * custoAditivo;
-
-    // Soma total do traço produzido
     const totalProducaoPropria = totalCimento + totalAreia + totalBrita + totalAgua + totalAditivo;
 
-    // Atualiza o resultado para exibir na tela
+    // Atualiza o resultado com o nome e a imagem do equipamento selecionado
     setResult({
-      equipamento: selectedEquip,
+      equipamentoNome: equipEscolhido.nome,
+      equipamentoImagem: equipEscolhido.imagem, // supondo que seja uma URL
       traco: tracoEscolhido.nome,
       totalProducaoPropria,
       custoUsinado,
@@ -233,15 +234,23 @@ function Analise() {
       {result && (
         <div className="mt-6 p-4 bg-gray-100 rounded">
           <h2 className="font-bold text-lg">Resultado da Análise:</h2>
-          <p className="mt-2">
-            <strong>Equipamento Selecionado:</strong> {result.equipamento || "Nenhum"}
-          </p>
+          <div className="flex items-center mt-2">
+            {result.equipamentoImagem && (
+              <img
+                src={`${import.meta.env.VITE_API_URL}${result.equipamentoImagem}`}
+                alt={result.equipamentoNome}
+                className="w-16 h-16 object-cover rounded mr-4"
+              />
+            )}
+            <p>
+              <strong>Equipamento Selecionado:</strong> {result.equipamentoNome}
+            </p>
+          </div>
           <p>
             <strong>Traço Selecionado:</strong> {result.traco}
           </p>
           <p className="mt-2">
-            <strong>Custo de Produção Própria:</strong>{" "}
-            R$ {result.totalProducaoPropria.toFixed(2)}
+            <strong>Custo de Produção Própria:</strong> R$ {result.totalProducaoPropria.toFixed(2)}
           </p>
           <p>
             <strong>Custo de Concreto Usinado:</strong> R$ {result.custoUsinado.toFixed(2)}
