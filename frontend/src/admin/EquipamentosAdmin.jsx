@@ -138,6 +138,7 @@ function EquipamentosAdmin() {
             <h2 className="text-xl font-bold mb-4">{editingId ? "Editar Equipamento" : "Adicionar Equipamento"}</h2>
             <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
               <input className="border p-2" type="text" name="nome" placeholder="Nome" value={equipamentoData.nome} onChange={handleChange} required />
+              <input className="border p-2" type="text" name="nome" placeholder="valor" value={equipamentoData.valor} onChange={handleChange} required />
               <input className="border p-2" type="number" name="volume_balao" placeholder="Volume do Balão (L)" value={equipamentoData.volume_balao} onChange={handleChange} required />
               <input className="border p-2" type="number" name="capacidade_producao_hora" placeholder="Capacidade Produção (m³/h)" value={equipamentoData.capacidade_producao_hora} onChange={handleChange} required />
               <input className="border p-2" type="number" name="capacidade_tanque_diesel" placeholder="Tanque Diesel (L)" value={equipamentoData.capacidade_tanque_diesel} onChange={handleChange} required />
@@ -171,8 +172,16 @@ function EquipamentosAdmin() {
             <p><strong>💰 Valor:</strong> R$ {equipamento.valor}</p>
             <p><strong>Volume do Balão:</strong> {equipamento.volume_balao} L</p>
             <p><strong>Capacidade Produção:</strong> {equipamento.capacidade_producao_hora} m³/h</p>
+            <p><strong>Capacidade Tanque:</strong> {equipamento.capacidade_tanque_diesel} L</p>
+            <p><strong>Capacidade Óleo Motor:</strong> {equipamento.capacidade_oleo_motor} L</p>
+            <p><strong>Capacidade Óleo Hidráulico:</strong> {equipamento.capacidade_oleo_hidraulico} L</p>
+            <p><strong>Capacidade Óleo Redutor:</strong> {equipamento.capacidade_oleo_redutor} L</p>
+            <p><strong>Capacidade Fluídos de Freio:</strong> {equipamento.fluido_freios} L</p>
+            <p><strong>Capacidade Graxa:</strong> {equipamento.graxa} Kg/h</p>
+            <p><strong>Capacidade Produção:</strong> {equipamento.capacidade_producao_hora} m³/h</p>
 
-            <div className="flex justify-between mt-4">
+            
+               <div className="flex justify-between mt-4">
               <button className="bg-blue-500 text-white px-2 py-1 rounded" onClick={() => handleEdit(equipamento)}>✏️ Editar</button>
               <button className="bg-red-500 text-white px-2 py-1 rounded" onClick={() => handleDelete(equipamento._id)}>🗑️ Excluir</button>
             </div>
