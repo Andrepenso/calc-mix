@@ -1,14 +1,13 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 
-// Configuração para corrigir o problema de "Not Found" no Render
 export default defineConfig({
   plugins: [react()],
   server: {
-    port: 5173, // Porta local
+    host: true, // Permite o acesso externo ao servidor dev
   },
-  build: {
-    outDir: 'dist',
+  preview: {
+    port: 4173, // Define uma porta para preview
+    allowedHosts: ["calculadora-comparativa-concreto.onrender.com"], // 🚀 Permite o domínio do Render
   },
-  base: '/', // Define a base para evitar problemas de rota
 });
