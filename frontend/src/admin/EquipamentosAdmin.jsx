@@ -62,6 +62,19 @@ function EquipamentosAdmin() {
     });
     setShowModal(true);
   };
+
+  const handleDelete = async (id) => {
+    if (!window.confirm("Tem certeza que deseja excluir este Equipamento?")) return;
+
+    try {
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/equipamentos/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      fetchTracos();
+    } catch (error) {
+      console.error("Erro ao deletar equipamento", error);
+    }
+  };
   
 
   const handleSubmit = async (e) => {
