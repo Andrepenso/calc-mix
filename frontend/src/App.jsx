@@ -8,7 +8,7 @@ import Login from "./pages/Login";
 import EquipamentosAdmin from "./admin/EquipamentosAdmin";
 import TracosAdmin from "./admin/TracosAdmin";
 import Dashboard from "./admin/Dashboard";
-import PrivateRoute from "./routes/PrivateRoute"; // 🔒 Importando a proteção de rotas
+import PrivateRoute from "./routes/PrivateRoute"; 
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
         <Route path="/analise" element={<Analise />} />
         <Route path="/login" element={<Login />} />
 
-        {/* 🔒 Páginas Protegidas - Apenas para usuários logados */}
+        {/* Páginas Protegidas - Apenas para usuários logados */}
         <Route path="/admin/dashboard" element={<PrivateRoute element={<Dashboard />} />} />
         <Route path="/admin/equipamentos" element={<PrivateRoute element={<EquipamentosAdmin />} />} />
         <Route path="/admin/tracos" element={<PrivateRoute element={<TracosAdmin />} />} />
