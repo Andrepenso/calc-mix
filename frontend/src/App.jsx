@@ -8,7 +8,7 @@ import Login from "./pages/Login";
 import EquipamentosAdmin from "./admin/EquipamentosAdmin";
 import TracosAdmin from "./admin/TracosAdmin";
 import Dashboard from "./admin/Dashboard";
-
+import PrivateRoute from "./routes/PrivateRoute.jsx"; // Importação correta
 
 function App() {
   return (
