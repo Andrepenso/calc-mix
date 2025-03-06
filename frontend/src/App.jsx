@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useState } from "react";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import SaibaMais from "./pages/SaibaMais";
@@ -11,12 +12,16 @@ import Dashboard from "./admin/Dashboard";
 import PrivateRoute from "./routes/PrivateRoute.jsx"; // Importação correta
 
 function App() {
+  const [showNavbar, setShowNavbar] = useState(false);
+
   return (
     <Router>
-      <Navbar />
+      {/* Passamos a visibilidade da Navbar como prop */}
+      <Navbar isVisible={showNavbar} />
+
       <Routes>
-        {/* Páginas Públicas */}
-        <Route path="/" element={<Home />} />
+        {/* Página Home agora recebe a função para mostrar a Navbar */}
+        <Route path="/" element={<Home onStart={() => setShowNavbar(true)} />} />
         <Route path="/saiba-mais" element={<SaibaMais />} />
         <Route path="/equipamentos" element={<EquipamentosPublico />} />
         <Route path="/analise" element={<Analise />} />

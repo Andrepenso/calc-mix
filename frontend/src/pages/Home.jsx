@@ -1,6 +1,4 @@
-import { Link } from "react-router-dom";
-
-function Home() {
+function Home({ onStart }) { // Recebe a função onStart como prop
   return (
     <div className="relative w-full h-screen">
       {/* Fundo com imagem */}
@@ -22,12 +20,14 @@ function Home() {
         <p className="mt-4 text-lg max-w-2xl text-gray-300">
           Compare equipamentos e produza seu concreto!
         </p>
-        <Link
-          to="/home"
+        
+        {/* Botão que ativa a Navbar */}
+        <button
+          onClick={onStart}
           className="mt-6 bg-yellow-500 text-gray-900 px-6 py-3 rounded-lg shadow-md hover:bg-yellow-600 transition font-bold text-lg"
         >
           Comece Agora 🚀
-        </Link>
+        </button>
       </div>
     </div>
   );
