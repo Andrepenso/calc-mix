@@ -1,10 +1,10 @@
-function Home({ onStart }) { // Recebe a função onStart como prop
+function Home({ onStart, isConcreteMode }) {
   return (
-    <div className="relative w-full h-screen">
-      {/* Fundo com imagem */}
+    <div className={`relative w-full h-screen ${isConcreteMode ? "bg-concreto" : ""}`}>
+      {/* Define qual fundo deve ser mostrado */}
       <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: "url('/construction-silhouette.jpg')" }}
+        style={{ backgroundImage: isConcreteMode ? "url('/fundo-concreto.jpg')" : "url('/construction-silhouette.jpg')" }}
       >
         <div className="absolute inset-0 bg-black bg-opacity-50"></div>
       </div>
@@ -20,14 +20,16 @@ function Home({ onStart }) { // Recebe a função onStart como prop
         <p className="mt-4 text-lg max-w-2xl text-gray-300">
           Compare equipamentos e produza seu concreto!
         </p>
-        
-        {/* Botão que ativa a Navbar */}
-        <button
-          onClick={onStart}
-          className="mt-6 bg-yellow-500 text-gray-900 px-6 py-3 rounded-lg shadow-md hover:bg-yellow-600 transition font-bold text-lg"
-        >
-          Comece Agora 🚀
-        </button>
+
+        {/* O botão "Comece Agora" só aparece se o fundo de concreto ainda NÃO foi ativado */}
+        {!isConcreteMode && (
+          <button
+            onClick={onStart}
+            className="mt-6 bg-yellow-500 text-gray-900 px-6 py-3 rounded-lg shadow-md hover:bg-yellow-600 transition font-bold text-lg"
+          >
+            Comece Agora 🚀
+          </button>
+        )}
       </div>
     </div>
   );

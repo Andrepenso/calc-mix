@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import SaibaMais from "./pages/SaibaMais";
@@ -9,31 +9,50 @@ import Login from "./pages/Login";
 import EquipamentosAdmin from "./admin/EquipamentosAdmin";
 import TracosAdmin from "./admin/TracosAdmin";
 import Dashboard from "./admin/Dashboard";
-import PrivateRoute from "./routes/PrivateRoute.jsx"; // Importação correta
+import PrivateRoute from "./routes/PrivateRoute.jsx";
 
 function App() {
-  const [showNavbar, setShowNavbar] = useState(false);
+  const [showNavbar, setShowNavbar] = useState(() => {
+    return localStorage.getItem("showNavbar") === "true";
+  });
+
+  const [isConcreteMode, setIsConcreteMode] = useState(() => {
+    return localStorage.getItem("isConcreteMode") === "true";
+  });
+
+  useEffect(() => {
+    localStorage.setItem("showNavbar", showNavbar);
+    localStorage.setItem("isConcreteMode", isConcreteMode);
+  }, [showNavbar, isConcreteMode]);
 
   return (
     <Router>
-      {/* Adiciona classe de fundo diferente após clicar em "Comece Agora" */}
-      <div className={showNavbar ? "bg-concreto min-h-screen" : ""}>
-        <Navbar isVisible={showNavbar} />
+      {/* Navbar só aparece depois de clicar em "Comece Agora" */}
+      {showNavbar && <Navbar isVisible={showNavbar} />}
 
-        <Routes>
-          {/* Página Home agora recebe a função para mostrar a Navbar */}
-          <Route path="/" element={<Home onStart={() => setShowNavbar(true)} />} />
-          <Route path="/saiba-mais" element={<SaibaMais />} />
-          <Route path="/equipamentos" element={<EquipamentosPublico />} />
-          <Route path="/analise" element={<Analise />} />
-          <Route path="/login" element={<Login />} />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Home
+              onStart={() => {
+                setShowNavbar(true);
+                setIsConcreteMode(true); // Ativa o fundo de concreto só depois do clique
+              }}
+              isConcreteMode={isConcreteMode}
+            />
+          }
+        />
+        <Route path="/saiba-mais" element={<SaibaMais />} />
+        <Route path="/equipamentos" element={<EquipamentosPublico />} />
+        <Route path="/analise" element={<Analise />} />
+        <Route path="/login" element={<Login />} />
 
-          {/* Páginas Protegidas - Apenas para usuários logados */}
-          <Route path="/admin/dashboard" element={<PrivateRoute element={<Dashboard />} />} />
-          <Route path="/admin/equipamentos" element={<PrivateRoute element={<EquipamentosAdmin />} />} />
-          <Route path="/admin/tracos" element={<PrivateRoute element={<TracosAdmin />} />} />
-        </Routes>
-      </div>
+        {/* Páginas Protegidas */}
+        <Route path="/admin/dashboard" element={<PrivateRoute element={<Dashboard />} />} />
+        <Route path="/admin/equipamentos" element={<PrivateRoute element={<EquipamentosAdmin />} />} />
+        <Route path="/admin/tracos" element={<PrivateRoute element={<TracosAdmin />} />} />
+      </Routes>
     </Router>
   );
 }
