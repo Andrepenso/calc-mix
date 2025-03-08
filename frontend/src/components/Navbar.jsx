@@ -10,7 +10,7 @@ function Navbar({ isVisible }) {
     <nav className="fixed top-0 left-0 w-full p-6 bg-white/90 backdrop-blur-md shadow-md z-50">
       <div className="w-full flex justify-between items-center">
         {/* Logo */}
-        <h1 className="text-xl font-bold text-gray-800">Comparação de Custos</h1>
+        <h1 className="text-xl font-bold text-gray-800">++++++</h1>
 
         {/* Botão para Mobile */}
         <div className="md:hidden">
