@@ -78,7 +78,6 @@ function EquipamentosAdmin() {
           volume_balao: "",
           capacidade_producao_hora: "",
           capacidade_tanque_diesel: "",
-          capacidade_oleo_motor: "",
           capacidade_oleo_hidraulico: "",
           capacidade_oleo_redutor: "",
           fluido_freios: "",
@@ -355,13 +354,18 @@ function EquipamentosAdmin() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {equipamentos.map((equipamento) => (
           <div key={equipamento._id} className="border rounded-lg shadow-md p-4 bg-white">
-            {equipamento.imagem && (
-              <img
-                src={`${import.meta.env.VITE_API_URL}${equipamento.imagem}`}
-                alt={equipamento.nome}
-                className="w-full h-32 object-cover rounded"
-              />
+            {equipamento.imagem ? (
+             <img
+               src={`${import.meta.env.VITE_API_URL}/uploads/${encodeURIComponent(equipamento.imagem)}`}
+               alt={equipamento.nome}
+              className="w-full h-32 object-cover rounded"
+            />  
+          ) : (
+            <div className="w-full h-32 bg-gray-100 flex items-center justify-center text-gray-400 italic mb-2">
+              Sem imagem
+            </div>
             )}
+
             <h2 className="text-lg font-bold mt-2">{equipamento.nome}</h2>
             <p className="text-gray-700">{equipamento.descricao}</p>
             <p><strong>💰 Valor:</strong> R$ {equipamento.valor}</p>
