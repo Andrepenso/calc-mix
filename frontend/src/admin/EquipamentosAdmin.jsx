@@ -202,18 +202,17 @@ function EquipamentosAdmin() {
                   value={equipamentoData.valor}
                   onChange={handleChange}
                   onBlur={(e) => {
-                    // Remove qualquer formatação anterior e converte para número
-                    const rawValue = e.target.value.replace(/\./g, '').replace(',', '.');
-                    const value = parseFloat(rawValue);
-                    if (!isNaN(value)) {
-                      // Formata para pt-BR: milhares com ponto e decimal com vírgula
-                      const formatted = value.toLocaleString('pt-BR', {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
-                      });
-                      setEquipamentoData({ ...equipamentoData, valor: formatted });
+                    const raw = e.target.value
+                      .replace(/[R$\s.]/g, '')  // remove R$, espaços e pontos
+                      .replace(',', '.');       // troca vírgula por ponto
+                    const number = parseFloat(raw);
+                  
+                    if (!isNaN(number)) {
+                      // armazena o número REAL no estado (sem formatação)
+                      setEquipamentoData({ ...equipamentoData, valor: number });
                     }
                   }}
+                  
                   required
                 />
               </label>

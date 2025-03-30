@@ -42,12 +42,15 @@ function formatarNumeros(obj) {
 
   camposNumericos.forEach((campo) => {
     if (obj[campo]) {
-      obj[campo] = parseFloat(obj[campo]);
+      // Remove pontos de milhar e troca vírgula decimal por ponto
+      const valorLimpo = String(obj[campo]).replace(/\./g, "").replace(",", ".");
+      obj[campo] = parseFloat(valorLimpo);
     }
   });
 
   return obj;
 }
+
 
 // 📌 Criar novo equipamento
 router.post("/", authMiddleware, upload.single("imagem"), async (req, res) => {
