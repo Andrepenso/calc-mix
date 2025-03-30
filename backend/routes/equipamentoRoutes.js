@@ -74,11 +74,18 @@ router.post("/", authMiddleware, upload.single("imagem"), async (req, res) => {
 router.get("/", async (req, res) => {
   try {
     const equipamentos = await Equipamento.find();
-    res.json(equipamentos);
+
+    const equipamentosComImagemUrl = equipamentos.map(equip => ({
+      ...equip.toObject(),
+      imagem_url: equip.imagem || null,
+    }));
+
+    res.json(equipamentosComImagemUrl);
   } catch (error) {
     res.status(500).json({ error: "Erro ao buscar equipamentos" });
   }
 });
+
 
 // 📌 Editar um equipamento
 router.put("/:id", authMiddleware, upload.single("imagem"), async (req, res) => {
