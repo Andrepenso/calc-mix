@@ -353,17 +353,23 @@ function EquipamentosAdmin() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {equipamentos.map((equipamento) => (
           <div key={equipamento._id} className="border rounded-lg shadow-md p-4 bg-white">
-            {equipamento.imagem ? (
+            {equipamento.imagem_url ? (
               <img
-                src={`${import.meta.env.VITE_API_URL}/uploads/${encodeURIComponent(equipamento.imagem)}`}
-                alt={equipamento.nome}
-                className="w-full h-32 object-cover rounded"
+                src={equipamento.imagem_url}
+                alt={`Imagem do equipamento ${equipamento.nome}`}
+                className="w-full h-32 object-cover rounded mb-2"
+                loading="lazy"
+                onError={(e) => {
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src = "/img/sem-imagem.jpg"; // fallback local
+                }}
               />
             ) : (
               <div className="w-full h-32 bg-gray-100 flex items-center justify-center text-gray-400 italic mb-2">
                 Sem imagem
               </div>
             )}
+
 
             <h2 className="text-lg font-bold mt-2">{equipamento.nome}</h2>
             <p className="text-gray-700">{equipamento.descricao}</p>

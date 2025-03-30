@@ -23,7 +23,7 @@ function EquipamentosPublico() {
           >
             {equipamento.imagem ? (
               <img
-                src={`${import.meta.env.VITE_API_URL}/uploads/${encodeURIComponent(equipamento.imagem)}`}
+                src={equipamento.imagem_url}
                 alt={equipamento.nome}
                 className="w-full h-32 object-cover rounded mb-4"
               />
