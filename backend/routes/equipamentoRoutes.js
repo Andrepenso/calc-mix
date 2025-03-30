@@ -105,13 +105,38 @@ router.put("/:id", authMiddleware, upload.single("imagem"), async (req, res) => 
 });
 
 // 📌 Deletar equipamento
+const path = require("path");
+
 router.delete("/:id", authMiddleware, async (req, res) => {
   try {
+    const equipamento = await Equipamento.findById(req.params.id);
+
+    if (!equipamento) {
+      return res.status(404).json({ error: "Equipamento não encontrado." });
+    }
+
+    // Deletar imagem do Cloudinary, se existir
+    if (equipamento.imagem) {
+      const url = equipamento.imagem;
+
+      const urlParts = url.split("/");
+      const filename = urlParts[urlParts.length - 1]; // ex: abc123.jpg
+      const folder = urlParts[urlParts.length - 2];   // ex: equipamentos
+
+      const publicId = `${folder}/${path.parse(filename).name}`; // equipamentos/abc123
+
+      await cloudinary.uploader.destroy(publicId);
+    }
+
+    // 🧹 Deletar o documento do Mongo
     await Equipamento.findByIdAndDelete(req.params.id);
-    res.json({ message: "Equipamento deletado com sucesso!" });
+
+    res.json({ message: "Equipamento e imagem removidos com sucesso!" });
   } catch (error) {
-    res.status(500).json({ error: "Erro ao deletar equipamento" });
+    console.error("Erro ao deletar:", error);
+    res.status(500).json({ error: "Erro ao deletar equipamento", details: error.message });
   }
 });
+
 
 module.exports = router;
