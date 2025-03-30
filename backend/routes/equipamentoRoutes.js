@@ -1,44 +1,61 @@
 const express = require("express");
 const multer = require("multer");
 const fs = require("fs");
+const path = require("path");
 const Equipamento = require("../models/Equipamento");
 const authMiddleware = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
 // 📂 Garante que a pasta de uploads existe
-const uploadDir = "uploads/";
+const uploadDir = path.join(__dirname, "..", "uploads");
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
 
-// 📂 Configuração do Multer para armazenar imagens
+// 📥 Configuração do Multer
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, uploadDir);
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + "-" + file.originalname);
+    const uniqueName = `${Date.now()}-${file.originalname}`;
+    cb(null, uniqueName);
   },
 });
 
 const upload = multer({ storage });
 
-// Criar um novo equipamento com upload de imagem
+// 📌 Helper: converte valores numéricos
+function formatarNumeros(obj) {
+  const camposNumericos = [
+    "valor",
+    "volume_balao",
+    "capacidade_producao_hora",
+    "capacidade_tanque_diesel",
+    "capacidade_oleo_motor",
+    "capacidade_oleo_hidraulico",
+    "capacidade_oleo_redutor",
+    "fluido_freios",
+    "graxa",
+  ];
+
+  camposNumericos.forEach((campo) => {
+    if (obj[campo]) {
+      obj[campo] = parseFloat(obj[campo]);
+    }
+  });
+
+  return obj;
+}
+
+// 📌 Criar novo equipamento
 router.post("/", authMiddleware, upload.single("imagem"), async (req, res) => {
   try {
-    const equipamentoData = { ...req.body };
-    
-    // Converte valores numéricos corretamente
-    ["valor", "volume_balao", "capacidade_producao_hora", "capacidade_tanque_diesel", "capacidade_oleo_motor", "capacidade_oleo_hidraulico", "capacidade_oleo_redutor", "fluido_freios", "graxa"].forEach((campo) => {
-      if (equipamentoData[campo]) {
-        equipamentoData[campo] = parseFloat(equipamentoData[campo]);
-      }
-    });
+    const equipamentoData = formatarNumeros({ ...req.body });
 
-    // Adiciona a imagem apenas se estiver presente
     if (req.file) {
-      equipamentoData.imagem = `/uploads/${req.file.filename}`;
+      equipamentoData.imagem = req.file.filename; // só o nome do arquivo
     }
 
     const novoEquipamento = new Equipamento(equipamentoData);
@@ -50,7 +67,7 @@ router.post("/", authMiddleware, upload.single("imagem"), async (req, res) => {
   }
 });
 
-// 📌 Listar todos os equipamentos
+// 📌 Listar equipamentos
 router.get("/", async (req, res) => {
   try {
     const equipamentos = await Equipamento.find();
@@ -60,20 +77,13 @@ router.get("/", async (req, res) => {
   }
 });
 
-// 📌 Editar um equipamento por ID
+// 📌 Editar equipamento
 router.put("/:id", authMiddleware, upload.single("imagem"), async (req, res) => {
   try {
-    const updateData = { ...req.body };
-    
-    // Converte valores numéricos corretamente
-    ["valor", "volume_balao", "capacidade_producao_hora", "capacidade_tanque_diesel", "capacidade_oleo_motor", "capacidade_oleo_hidraulico", "capacidade_oleo_redutor", "fluido_freios", "graxa"].forEach((campo) => {
-      if (updateData[campo]) {
-        updateData[campo] = parseFloat(updateData[campo]);
-      }
-    });
+    const updateData = formatarNumeros({ ...req.body });
 
     if (req.file) {
-      updateData.imagem = `/uploads/${req.file.filename}`;
+      updateData.imagem = req.file.filename;
     }
 
     const equipamento = await Equipamento.findByIdAndUpdate(req.params.id, updateData, { new: true });
@@ -84,7 +94,7 @@ router.put("/:id", authMiddleware, upload.single("imagem"), async (req, res) => 
   }
 });
 
-// 📌 Deletar um equipamento por ID
+// 📌 Deletar equipamento
 router.delete("/:id", authMiddleware, async (req, res) => {
   try {
     await Equipamento.findByIdAndDelete(req.params.id);
@@ -93,8 +103,5 @@ router.delete("/:id", authMiddleware, async (req, res) => {
     res.status(500).json({ error: "Erro ao deletar equipamento" });
   }
 });
-
-// Servir imagens estáticas
-router.use("/uploads", express.static("uploads"));
 
 module.exports = router;
