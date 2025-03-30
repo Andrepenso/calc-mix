@@ -114,17 +114,17 @@ function EquipamentosAdmin() {
     if (!window.confirm("Deseja salvar esse equipamento?")) {
       return;
     }
-  
+
     try {
       const formData = new FormData();
-      
+
       // Adiciona somente campos preenchidos
       Object.keys(equipamentoData).forEach((key) => {
         if (equipamentoData[key]) {
           formData.append(key, equipamentoData[key]);
         }
       });
-  
+
       if (editingId) {
         await axios.put(`${import.meta.env.VITE_API_URL}/api/equipamentos/${editingId}`, formData, {
           headers: {
@@ -140,7 +140,7 @@ function EquipamentosAdmin() {
           },
         });
       }
-  
+
       // Limpar formulário
       setEquipamentoData({
         nome: "",
@@ -156,7 +156,7 @@ function EquipamentosAdmin() {
         descricao: "",
         imagem: null,
       });
-  
+
       setEditingId(null);
       setShowModal(false);
       fetchEquipamentos();
@@ -180,7 +180,7 @@ function EquipamentosAdmin() {
               {editingId ? "Editar Equipamento" : "Adicionar Equipamento"}
             </h2>
             <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              
+
               <label className="col-span-1 md:col-span-2">
                 Nome do Equipamento:
                 <input
@@ -206,13 +206,13 @@ function EquipamentosAdmin() {
                       .replace(/[R$\s.]/g, '')  // remove R$, espaços e pontos
                       .replace(',', '.');       // troca vírgula por ponto
                     const number = parseFloat(raw);
-                  
+
                     if (!isNaN(number)) {
                       // armazena o número REAL no estado (sem formatação)
                       setEquipamentoData({ ...equipamentoData, valor: number });
                     }
                   }}
-                  
+
                   required
                 />
               </label>
@@ -354,20 +354,23 @@ function EquipamentosAdmin() {
         {equipamentos.map((equipamento) => (
           <div key={equipamento._id} className="border rounded-lg shadow-md p-4 bg-white">
             {equipamento.imagem ? (
-             <img
-               src={`${import.meta.env.VITE_API_URL}/uploads/${encodeURIComponent(equipamento.imagem)}`}
-               alt={equipamento.nome}
-              className="w-full h-32 object-cover rounded"
-            />  
-          ) : (
-            <div className="w-full h-32 bg-gray-100 flex items-center justify-center text-gray-400 italic mb-2">
-              Sem imagem
-            </div>
+              <img
+                src={`${import.meta.env.VITE_API_URL}/uploads/${encodeURIComponent(equipamento.imagem)}`}
+                alt={equipamento.nome}
+                className="w-full h-32 object-cover rounded"
+              />
+            ) : (
+              <div className="w-full h-32 bg-gray-100 flex items-center justify-center text-gray-400 italic mb-2">
+                Sem imagem
+              </div>
             )}
 
             <h2 className="text-lg font-bold mt-2">{equipamento.nome}</h2>
             <p className="text-gray-700">{equipamento.descricao}</p>
-            <p><strong>💰 Valor:</strong> R$ {equipamento.valor}</p>
+            <p><strong>💰 Valor:</strong> {parseFloat(equipamento.valor).toLocaleString("pt-BR", {
+              style: "currency",
+              currency: "BRL",
+            })}</p>
             <p><strong>Volume do Balão:</strong> {equipamento.volume_balao} L</p>
             <p><strong>Capacidade Produção:</strong> {equipamento.capacidade_producao_hora} m³/h</p>
             <p><strong>Capacidade Tanque de Diesel:</strong> {equipamento.capacidade_tanque_diesel} L</p>
@@ -376,7 +379,7 @@ function EquipamentosAdmin() {
             <p><strong>Capacidade Óleo Redutor:</strong> {equipamento.capacidade_oleo_redutor} L</p>
             <p><strong>Capacidade Fluídos de Freios:</strong> {equipamento.fluido_freios} L</p>
             <p><strong>Capacidade Graxa:</strong> {equipamento.graxa} KG</p>
-            
+
             <div className="flex justify-between mt-4">
               <button
                 className="bg-blue-500 text-white px-2 py-1 rounded"

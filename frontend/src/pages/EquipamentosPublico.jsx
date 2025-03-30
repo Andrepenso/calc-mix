@@ -37,7 +37,10 @@ function EquipamentosPublico() {
             <p className="text-gray-600">{equipamento.descricao}</p>
 
             <ul className="mt-2 text-sm text-gray-700">
-              <li><strong>💰 Valor:</strong> R$ {equipamento.valor}</li>
+              <p><strong>💰 Valor:</strong> {parseFloat(equipamento.valor).toLocaleString("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+              })}</p>
               <li><strong>Volume do Balão:</strong> {equipamento.volume_balao} L</li>
               <li><strong>Capacidade Produção:</strong> {equipamento.capacidade_producao_hora} m³/h</li>
               <li><strong>Capacidade Tanque de Diesel:</strong> {equipamento.capacidade_tanque_diesel} L</li>
