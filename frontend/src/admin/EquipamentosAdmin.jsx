@@ -126,7 +126,7 @@ function EquipamentosAdmin() {
           ? Number(String(equipamentoData.valor).replace(/\./g, '').replace(',', '.'))
           : 0,
         volume_balao: equipamentoData.volume_balao
-          ? parseFloat(String(equipamentoData.volume_balao).replace(',', '.'))
+          ? Number(String(equipamentoData.volume_balao).replace(',', '.'))
           : 0,
       };
   
