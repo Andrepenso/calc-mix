@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import SaibaMais from "./pages/SaibaMais";
 import EquipamentosPublico from "./pages/EquipamentosPublico";
 import Analise from "./pages/Analise";
+import Locacao from './pages/Locacao';
 import Login from "./pages/Login";
 import EquipamentosAdmin from "./admin/EquipamentosAdmin";
 import TracosAdmin from "./admin/TracosAdmin";
@@ -46,6 +47,7 @@ function App() {
         <Route path="/saiba-mais" element={<SaibaMais />} />
         <Route path="/equipamentos" element={<EquipamentosPublico />} />
         <Route path="/analise" element={<Analise />} />
+        <Route path="/locacao" element={<Locacao />} />
         <Route path="/login" element={<Login />} />
 
         {/* Páginas Protegidas */}
