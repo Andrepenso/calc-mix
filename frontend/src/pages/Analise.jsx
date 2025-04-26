@@ -107,12 +107,11 @@ function Analise() {
     // Atualiza o resultado com o nome e a imagem do equipamento selecionado
     setResult({
       equipamentoNome: equipEscolhido.nome,
-      equipamentoImagem: equipEscolhido.imagem_url,
+      equipamentoImagem: equipEscolhido.imagem_url || null,
       traco: tracoEscolhido.nome,
       totalProducaoPropria,
       custoUsinado,
-    });
-  };
+    });   
 
   return (
     <div className="p-6 pt-24 max-w-xl mx-auto">
