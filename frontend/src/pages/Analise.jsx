@@ -117,7 +117,7 @@ function Analise() {
   return (
     <div className="p-6 pt-24 max-w-xl mx-auto">
       <h1 className="text-2xl font-bold text-center mb-6">Comparação de Custo de Concreto</h1>
-      
+
       {/* Selecionar equipamento */}
       <div className="mb-4">
         <label className="block font-semibold">Equipamento:</label>
@@ -235,13 +235,22 @@ function Analise() {
         <div className="mt-6 p-4 bg-gray-100 rounded">
           <h2 className="font-bold text-lg">Resultado da Análise:</h2>
           <div className="flex items-center mt-2">
-            {result.equipamentoImagem && (
+            {result.equipamentoImagem ? (
               <img
-                src={`${import.meta.env.VITE_API_URL}${result.equipamentoImagem}`}
+                src={result.equipamentoImagem}
                 alt={result.equipamentoNome}
+                className="w-16 h-16 object-cover rounded mr-4"
+                loading="lazy"
+                onError={(e) => { e.currentTarget.src = "/img/sem-imagem.jpg"; }}
+              />
+            ) : (
+              <img
+                src="/img/sem-imagem.jpg"
+                alt="Sem imagem"
                 className="w-16 h-16 object-cover rounded mr-4"
               />
             )}
+
             <p>
               <strong>Equipamento Selecionado:</strong> {result.equipamentoNome}
             </p>
