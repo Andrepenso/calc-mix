@@ -8,6 +8,6 @@ export default defineConfig({
   },
   preview: {
     port: 4173, // Define uma porta para preview
-    allowedHosts: ["calculadora-comparativa-concreto.onrender.com"], // 🚀 Permite o domínio do Render
+    allowedHosts: ["calculadora-comparativa-concreto.onrender.com"], 
   },
 });

@@ -107,7 +107,7 @@ function Analise() {
     // Atualiza o resultado com o nome e a imagem do equipamento selecionado
     setResult({
       equipamentoNome: equipEscolhido.nome,
-      equipamentoImagem: equipEscolhido.imagem, // supondo que seja uma URL
+      equipamentoImagem: equipEscolhido.imagem_url,
       traco: tracoEscolhido.nome,
       totalProducaoPropria,
       custoUsinado,
