@@ -221,13 +221,17 @@ function EquipamentosAdmin() {
                 Volume do Balão (m³):
                 <input
                   className="border p-2 w-full mt-1"
-                  type="text"   // aqui muda para text
+                  type="text"
                   name="volume_balao"
                   value={equipamentoData.volume_balao}
-                  onChange={handleChange}
+                  onChange={(e) => {
+                    let valorDigitado = e.target.value.replace(',', '.');
+                    setEquipamentoData({ ...equipamentoData, volume_balao: valorDigitado });
+                  }}
                   required
                 />
               </label>
+
 
 
 
