@@ -379,7 +379,7 @@ function EquipamentosAdmin() {
               style: "currency",
               currency: "BRL",
             })}</p>
-            <p><strong>Volume do Balão:</strong> {equipamento.volume_balao} L</p>
+            <p><strong>Volume do Balão:</strong> {equipamento.volume_balao} m³</p>
             <p><strong>Capacidade Produção:</strong> {equipamento.capacidade_producao_hora} m³/h</p>
             <p><strong>Capacidade Tanque de Diesel:</strong> {equipamento.capacidade_tanque_diesel} L</p>
             <p><strong>Capacidade Óleo Motor:</strong> {equipamento.capacidade_oleo_motor} L</p>

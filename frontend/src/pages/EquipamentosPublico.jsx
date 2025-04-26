@@ -41,7 +41,7 @@ function EquipamentosPublico() {
                 style: "currency",
                 currency: "BRL",
               })}</p>
-              <li><strong>Volume do Balão:</strong> {equipamento.volume_balao} L</li>
+              <li><strong>Volume do Balão:</strong> {equipamento.volume_balao} m³</li>
               <li><strong>Capacidade Produção:</strong> {equipamento.capacidade_producao_hora} m³/h</li>
               <li><strong>Capacidade Tanque de Diesel:</strong> {equipamento.capacidade_tanque_diesel} L</li>
               <li><strong>Capacidade Óleo Motor:</strong> {equipamento.capacidade_oleo_motor} L</li>
