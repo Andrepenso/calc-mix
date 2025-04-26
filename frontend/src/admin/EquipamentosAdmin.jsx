@@ -37,16 +37,16 @@ function EquipamentosAdmin() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-  
+
     if (name === "volume_balao" || name === "valor") {
       const valorNumerico = parseFloat(value.replace(',', '.'));
-  
+
       setEquipamentoData({ ...equipamentoData, [name]: isNaN(valorNumerico) ? '' : valorNumerico });
     } else {
       setEquipamentoData({ ...equipamentoData, [name]: value });
     }
   };
-  
+
 
   const handleFileChange = (e) => {
     setEquipamentoData({ ...equipamentoData, imagem: e.target.files[0] });
@@ -237,16 +237,14 @@ function EquipamentosAdmin() {
                 Volume do Balão (m³):
                 <input
                   className="border p-2 w-full mt-1"
-                  type="number"
-                  step="0.01"
-                  lang="pt-BR"
-                  inputMode="decimal"
+                  type="text"     // <-- aqui, era number, agora text
                   name="volume_balao"
                   value={equipamentoData.volume_balao}
                   onChange={handleChange}
                   required
                 />
               </label>
+
 
 
 
