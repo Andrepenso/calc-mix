@@ -111,9 +111,11 @@ function Analise() {
       traco: tracoEscolhido.nome,
       totalProducaoPropria,
       custoUsinado,
-    });   
+    });
+  } // Fecha aqui a função handleCalculate corretamente!
 
   return (
+
     <div className="p-6 pt-24 max-w-xl mx-auto">
       <h1 className="text-2xl font-bold text-center mb-6">Comparação de Custo de Concreto</h1>
 
