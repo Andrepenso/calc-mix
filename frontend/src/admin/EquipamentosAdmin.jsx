@@ -37,14 +37,10 @@ function EquipamentosAdmin() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    if (name === "valor" || name === "volume_balao") {
-      const valorConvertido = value.replace(',', '.');
-      setEquipamentoData({ ...equipamentoData, [name]: valorConvertido });
-    } else {
-      setEquipamentoData({ ...equipamentoData, [name]: value });
-    }
+    setEquipamentoData(prev => ({ ...prev, [name]: value }));
   };
+  
+  
 
 
 
@@ -129,9 +125,14 @@ function EquipamentosAdmin() {
       // Ajusta campos antes de enviar
       const dadosAjustados = {
         ...equipamentoData,
-        valor: parseFloat(String(equipamentoData.valor).replace(',', '.')) || 0,
-        volume_balao: parseFloat(String(equipamentoData.volume_balao).replace(',', '.')) || 0,
+        valor: equipamentoData.valor
+          ? Number(String(equipamentoData.valor).replace(/\./g, '').replace(',', '.'))
+          : 0,
+        volume_balao: equipamentoData.volume_balao
+          ? Number(String(equipamentoData.volume_balao).replace(',', '.'))
+          : 0,
       };
+      
 
       // Adiciona somente campos preenchidos
       Object.keys(dadosAjustados).forEach((key) => {
