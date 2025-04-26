@@ -37,8 +37,17 @@ function EquipamentosAdmin() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setEquipamentoData({ ...equipamentoData, [name]: value });
+    let formattedValue = value;
+
+    const camposDecimais = ["volume_balao", "capacidade_producao_hora", "valor"];
+
+    if (camposDecimais.includes(name)) {
+      formattedValue = value.replace(',', '.');
+    }
+
+    setEquipamentoData({ ...equipamentoData, [name]: formattedValue });
   };
+
 
   const handleFileChange = (e) => {
     setEquipamentoData({ ...equipamentoData, imagem: e.target.files[0] });
@@ -221,14 +230,14 @@ function EquipamentosAdmin() {
                 Volume do Balão (m³):
                 <input
                   className="border p-2 w-full mt-1"
-                  type="number"
-                  step="0.01"
+                  type="text"   // aqui muda para text
                   name="volume_balao"
                   value={equipamentoData.volume_balao}
                   onChange={handleChange}
                   required
                 />
               </label>
+
 
 
               <label>
