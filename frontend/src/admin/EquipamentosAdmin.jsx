@@ -96,7 +96,7 @@ function EquipamentosAdmin() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     // Verifica se já existe um equipamento com o mesmo nome (ignora case)
     const nomeEquipamento = equipamentoData.nome.trim().toLowerCase();
     const equipamentoDuplicado = equipamentos.some(
@@ -104,27 +104,34 @@ function EquipamentosAdmin() {
         equip.nome.trim().toLowerCase() === nomeEquipamento &&
         (editingId ? equip._id !== editingId : true)
     );
-
+  
     if (equipamentoDuplicado) {
       alert("Já existe um equipamento com esse nome. Por favor, escolha outro nome.");
       return;
     }
-
+  
     // Confirmação antes de salvar
     if (!window.confirm("Deseja salvar esse equipamento?")) {
       return;
     }
-
+  
     try {
       const formData = new FormData();
-
+  
+      // Ajusta campos antes de enviar
+      const dadosAjustados = {
+        ...equipamentoData,
+        valor: parseFloat(String(equipamentoData.valor).replace(',', '.')) || 0,
+        volume_balao: parseFloat(String(equipamentoData.volume_balao).replace(',', '.')) || 0,
+      };
+  
       // Adiciona somente campos preenchidos
-      Object.keys(equipamentoData).forEach((key) => {
-        if (equipamentoData[key]) {
-          formData.append(key, equipamentoData[key]);
+      Object.keys(dadosAjustados).forEach((key) => {
+        if (dadosAjustados[key] !== null && dadosAjustados[key] !== "") {
+          formData.append(key, dadosAjustados[key]);
         }
       });
-
+  
       if (editingId) {
         await axios.put(`${import.meta.env.VITE_API_URL}/api/equipamentos/${editingId}`, formData, {
           headers: {
@@ -140,7 +147,7 @@ function EquipamentosAdmin() {
           },
         });
       }
-
+  
       // Limpar formulário
       setEquipamentoData({
         nome: "",
@@ -156,7 +163,7 @@ function EquipamentosAdmin() {
         descricao: "",
         imagem: null,
       });
-
+  
       setEditingId(null);
       setShowModal(false);
       fetchEquipamentos();
@@ -164,6 +171,7 @@ function EquipamentosAdmin() {
       console.error("Erro ao salvar equipamento", error);
     }
   };
+  
 
   return (
     <div className="p-6 pt-24">
