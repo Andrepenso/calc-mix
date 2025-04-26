@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const EquipamentoSchema = new mongoose.Schema({
   nome: { type: String, required: true },
-  volume_balao: { type: mongoose.Schema.Types.Decimal128, required: true },
+  volume_balao: { type: Number, required: true }, 
   capacidade_producao_hora: { type: Number, required: true },
   capacidade_tanque_diesel: { type: Number, required: true },
   capacidade_oleo_motor: { type: Number, required: true },
