@@ -37,17 +37,8 @@ function EquipamentosAdmin() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    let formattedValue = value;
-
-    const camposDecimais = ["volume_balao", "capacidade_producao_hora", "valor"];
-
-    if (camposDecimais.includes(name)) {
-      formattedValue = value.replace(',', '.');
-    }
-
-    setEquipamentoData({ ...equipamentoData, [name]: formattedValue });
+    setEquipamentoData({ ...equipamentoData, [name]: value });
   };
-
 
   const handleFileChange = (e) => {
     setEquipamentoData({ ...equipamentoData, imagem: e.target.files[0] });
