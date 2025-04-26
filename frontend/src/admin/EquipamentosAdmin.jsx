@@ -100,87 +100,81 @@ function EquipamentosAdmin() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Verifica se já existe um equipamento com o mesmo nome (ignora case)
+  
     const nomeEquipamento = equipamentoData.nome.trim().toLowerCase();
     const equipamentoDuplicado = equipamentos.some(
       (equip) =>
         equip.nome.trim().toLowerCase() === nomeEquipamento &&
         (editingId ? equip._id !== editingId : true)
     );
-
+  
     if (equipamentoDuplicado) {
       alert("Já existe um equipamento com esse nome. Por favor, escolha outro nome.");
       return;
     }
-
-    // Confirmação antes de salvar
+  
     if (!window.confirm("Deseja salvar esse equipamento?")) {
       return;
     }
-
+  
     try {
       const formData = new FormData();
-
-      // Ajusta campos antes de enviar
+  
       const dadosAjustados = {
         ...equipamentoData,
         valor: equipamentoData.valor
           ? Number(String(equipamentoData.valor).replace(/\./g, '').replace(',', '.'))
           : 0,
         volume_balao: equipamentoData.volume_balao
-          ? Number(String(equipamentoData.volume_balao).replace(',', '.'))
+          ? parseFloat(String(equipamentoData.volume_balao).replace(',', '.'))
           : 0,
       };
-      
-      
-      
+  
       Object.keys(dadosAjustados).forEach((key) => {
         if (dadosAjustados[key] !== null && dadosAjustados[key] !== "") {
           formData.append(key, dadosAjustados[key]);
         }
       });
-      
-
-        if(editingId) {
-          await axios.put(`${import.meta.env.VITE_API_URL}/api/equipamentos/${editingId}`, formData, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "multipart/form-data",
-            },
-          });
-        } else {
-          await axios.post(`${import.meta.env.VITE_API_URL}/api/equipamentos`, formData, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "multipart/form-data",
-            },
-          });
-        }
-
-      // Limpar formulário
-      setEquipamentoData({
-          nome: "",
-          volume_balao: "",
-          capacidade_producao_hora: "",
-          capacidade_tanque_diesel: "",
-          capacidade_oleo_motor: "",
-          capacidade_oleo_hidraulico: "",
-          capacidade_oleo_redutor: "",
-          fluido_freios: "",
-          graxa: "",
-          valor: "",
-          descricao: "",
-          imagem: null,
+  
+      if (editingId) {
+        await axios.put(`${import.meta.env.VITE_API_URL}/api/equipamentos/${editingId}`, formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
         });
-
+      } else {
+        await axios.post(`${import.meta.env.VITE_API_URL}/api/equipamentos`, formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        });
+      }
+  
+      setEquipamentoData({
+        nome: "",
+        volume_balao: "",
+        capacidade_producao_hora: "",
+        capacidade_tanque_diesel: "",
+        capacidade_oleo_motor: "",
+        capacidade_oleo_hidraulico: "",
+        capacidade_oleo_redutor: "",
+        fluido_freios: "",
+        graxa: "",
+        valor: "",
+        descricao: "",
+        imagem: null,
+      });
+  
       setEditingId(null);
       setShowModal(false);
       fetchEquipamentos();
-      } catch (error) {
-        console.error("Erro ao salvar equipamento", error);
-      }
-    };
+    } catch (error) {
+      console.error("Erro ao salvar equipamento", error);
+    }
+  };
+  
 
 
     return (
