@@ -234,8 +234,15 @@ function EquipamentosAdmin() {
                   value={equipamentoData.volume_balao}
                   onChange={(e) => {
                     let valorDigitado = e.target.value.replace(',', '.');
-                    setEquipamentoData({ ...equipamentoData, volume_balao: valorDigitado });
+                    let valorConvertido = parseFloat(valorDigitado);
+                  
+                    if (!isNaN(valorConvertido)) {
+                      setEquipamentoData({ ...equipamentoData, volume_balao: valorConvertido });
+                    } else {
+                      setEquipamentoData({ ...equipamentoData, volume_balao: '' });
+                    }
                   }}
+               
                   required
                 />
               </label>
