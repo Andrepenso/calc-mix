@@ -31,6 +31,7 @@ function Navbar({ isVisible }) {
           <Link to="/saiba-mais" className="hover:text-blue-500 transition">📄 Saiba Mais</Link>
           <Link to="/equipamentos" className="hover:text-blue-500 transition">🏗️ Equipamentos</Link>
           <Link to="/analise" className="hover:text-blue-500 transition">📊 Análise</Link>
+          <Link to="/locacao">🚛 Locação</Link>
         </div>
 
         {/* Botão Admin Desktop */}
