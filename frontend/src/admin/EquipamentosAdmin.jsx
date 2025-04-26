@@ -218,16 +218,18 @@ function EquipamentosAdmin() {
               </label>
 
               <label>
-                Volume do Balão (L):
+                Volume do Balão (m³):
                 <input
                   className="border p-2 w-full mt-1"
                   type="number"
+                  step="0.01"
                   name="volume_balao"
                   value={equipamentoData.volume_balao}
                   onChange={handleChange}
                   required
                 />
               </label>
+
 
               <label>
                 Capacidade de Produção (m³/h):
