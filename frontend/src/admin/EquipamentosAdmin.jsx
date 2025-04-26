@@ -37,8 +37,16 @@ function EquipamentosAdmin() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setEquipamentoData({ ...equipamentoData, [name]: value });
+  
+    if (name === "volume_balao" || name === "valor") {
+      const valorNumerico = parseFloat(value.replace(',', '.'));
+  
+      setEquipamentoData({ ...equipamentoData, [name]: isNaN(valorNumerico) ? '' : valorNumerico });
+    } else {
+      setEquipamentoData({ ...equipamentoData, [name]: value });
+    }
   };
+  
 
   const handleFileChange = (e) => {
     setEquipamentoData({ ...equipamentoData, imagem: e.target.files[0] });
@@ -96,7 +104,7 @@ function EquipamentosAdmin() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     // Verifica se já existe um equipamento com o mesmo nome (ignora case)
     const nomeEquipamento = equipamentoData.nome.trim().toLowerCase();
     const equipamentoDuplicado = equipamentos.some(
@@ -104,34 +112,34 @@ function EquipamentosAdmin() {
         equip.nome.trim().toLowerCase() === nomeEquipamento &&
         (editingId ? equip._id !== editingId : true)
     );
-  
+
     if (equipamentoDuplicado) {
       alert("Já existe um equipamento com esse nome. Por favor, escolha outro nome.");
       return;
     }
-  
+
     // Confirmação antes de salvar
     if (!window.confirm("Deseja salvar esse equipamento?")) {
       return;
     }
-  
+
     try {
       const formData = new FormData();
-  
+
       // Ajusta campos antes de enviar
       const dadosAjustados = {
         ...equipamentoData,
         valor: parseFloat(String(equipamentoData.valor).replace(',', '.')) || 0,
         volume_balao: parseFloat(String(equipamentoData.volume_balao).replace(',', '.')) || 0,
       };
-  
+
       // Adiciona somente campos preenchidos
       Object.keys(dadosAjustados).forEach((key) => {
         if (dadosAjustados[key] !== null && dadosAjustados[key] !== "") {
           formData.append(key, dadosAjustados[key]);
         }
       });
-  
+
       if (editingId) {
         await axios.put(`${import.meta.env.VITE_API_URL}/api/equipamentos/${editingId}`, formData, {
           headers: {
@@ -147,7 +155,7 @@ function EquipamentosAdmin() {
           },
         });
       }
-  
+
       // Limpar formulário
       setEquipamentoData({
         nome: "",
@@ -163,7 +171,7 @@ function EquipamentosAdmin() {
         descricao: "",
         imagem: null,
       });
-  
+
       setEditingId(null);
       setShowModal(false);
       fetchEquipamentos();
@@ -171,7 +179,7 @@ function EquipamentosAdmin() {
       console.error("Erro ao salvar equipamento", error);
     }
   };
-  
+
 
   return (
     <div className="p-6 pt-24">
@@ -229,23 +237,17 @@ function EquipamentosAdmin() {
                 Volume do Balão (m³):
                 <input
                   className="border p-2 w-full mt-1"
-                  type="text"
+                  type="number"
+                  step="0.01"
+                  lang="pt-BR"
+                  inputMode="decimal"
                   name="volume_balao"
                   value={equipamentoData.volume_balao}
-                  onChange={(e) => {
-                    let valorDigitado = e.target.value.replace(',', '.');
-                    let valorConvertido = parseFloat(valorDigitado);
-                  
-                    if (!isNaN(valorConvertido)) {
-                      setEquipamentoData({ ...equipamentoData, volume_balao: valorConvertido });
-                    } else {
-                      setEquipamentoData({ ...equipamentoData, volume_balao: '' });
-                    }
-                  }}
-               
+                  onChange={handleChange}
                   required
                 />
               </label>
+
 
 
 
@@ -398,7 +400,7 @@ function EquipamentosAdmin() {
               style: "currency",
               currency: "BRL",
             })}</p>
-            <p><strong>Volume do Balão:</strong> {equipamento.volume_balao} m³</p>
+            <p><strong>Volume do Balão:</strong> {equipamento.volume_balao?.toLocaleString("pt-BR", { minimumFractionDigits: 2 })} m³</p>
             <p><strong>Capacidade Produção:</strong> {equipamento.capacidade_producao_hora} m³/h</p>
             <p><strong>Capacidade Tanque de Diesel:</strong> {equipamento.capacidade_tanque_diesel} L</p>
             <p><strong>Capacidade Óleo Motor:</strong> {equipamento.capacidade_oleo_motor} L</p>
