@@ -1,35 +1,51 @@
+import { Link } from "react-router-dom";
+
 function SaibaMais() {
-  // Exemplo de dados de blog, cada item pode ter título, descrição, imagem, link etc.
   const artigos = [
     {
       id: 1,
-      titulo: "Como escolher o melhor equipamento de concreto",
+      titulo: "Equipamentos compactos: quando são a melhor escolha?",
       descricao:
-        "Dicas sobre como analisar fatores como produtividade, custo de manutenção e consumo de combustível para escolher o equipamento mais adequado.",
-      imagem: "https://via.placeholder.com/400x200?text=Imagem+Artigo+1",
-      link: "#",
+        "Saiba em quais cenários optar por autoconcreteiras menores pode trazer vantagens logísticas, operacionais e financeiras para obras de pequeno porte ou difícil acesso.",
+      imagem: "/equipamentos-compactos.png",
+      link: "/saiba-mais/equipamentos-compactos",
     },
     {
       id: 2,
-      titulo: "A importância de um traço de concreto bem planejado",
+      titulo: "Como o consumo de diesel impacta o custo do concreto",
       descricao:
-        "Entenda como a proporção correta de cimento, areia, brita, água e aditivos pode impactar na qualidade e no custo do concreto.",
-      imagem: "https://via.placeholder.com/400x200?text=Imagem+Artigo+2",
-      link: "#",
+        "Veja como o rendimento por litro, a autonomia do tanque e a eficiência energética influenciam o custo por m³ de concreto produzido.",
+      imagem: "/consumo-diesel.jpg",
+      link: "/saiba-mais/consumo-diesel",
     },
     {
       id: 3,
-      titulo: "Reduzindo custos sem perder qualidade",
+      titulo: "Traço FCK 25 vs FCK 30: qual a diferença prática?",
       descricao:
-        "Descubra estratégias para reduzir custos em obras sem comprometer a segurança e a durabilidade das estruturas.",
-      imagem: "https://via.placeholder.com/400x200?text=Imagem+Artigo+3",
-      link: "#",
+        "Entenda a diferença entre os traços mais utilizados em obras e como isso afeta durabilidade, resistência e custo da concretagem.",
+      imagem: "https://via.placeholder.com/400x200?text=FCK+25+vs+FCK+30",
+      link: "/saiba-mais/fck25-vs-fck30",
+    },
+    {
+      id: 4,
+      titulo: "Como calcular o payback de um equipamento de concreto",
+      descricao:
+        "Aprenda a estimar em quanto tempo o investimento em uma autoconcreteira pode se pagar, considerando volume, custo operacional e uso previsto.",
+      imagem: "https://via.placeholder.com/400x200?text=Payback+de+Equipamento",
+      link: "/saiba-mais/payback-equipamento",
+    },
+    {
+      id: 5,
+      titulo: "Checklist de manutenção para garantir performance da autoconcreteira",
+      descricao:
+        "Evite surpresas na obra. Confira os principais pontos de verificação para manter sua autoconcreteira funcionando com alta eficiência e segurança.",
+      imagem: "https://via.placeholder.com/400x200?text=Checklist+Manuten%C3%A7%C3%A3o",
+      link: "/saiba-mais/checklist-manutencao",
     },
   ];
 
   return (
     <div className="p-6 pt-24 max-w-4xl mx-auto">
-      {/* Seção de apresentação */}
       <div className="text-center">
         <h1 className="text-3xl font-bold text-blue-700">📄 Sobre a Plataforma</h1>
         <p className="mt-4 text-gray-700">
@@ -42,7 +58,6 @@ function SaibaMais() {
         </p>
       </div>
 
-      {/* Seção de “artigos” ou tópicos de blog */}
       <div className="mt-10 space-y-8">
         {artigos.map((artigo) => (
           <div
@@ -57,12 +72,12 @@ function SaibaMais() {
             <div className="flex-1">
               <h2 className="text-xl font-semibold text-blue-800">{artigo.titulo}</h2>
               <p className="text-gray-700 mt-2">{artigo.descricao}</p>
-              <a
-                href={artigo.link}
+              <Link
+                to={artigo.link}
                 className="inline-block mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
               >
                 Ler mais
-              </a>
+              </Link>
             </div>
           </div>
         ))}

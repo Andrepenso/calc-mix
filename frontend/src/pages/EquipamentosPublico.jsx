@@ -25,8 +25,9 @@ function EquipamentosPublico() {
               <img
                 src={equipamento.imagem_url}
                 alt={equipamento.nome}
-                className="w-full h-32 object-cover rounded mb-4"
+                className="w-full h-48 object-contain mx-auto"
               />
+
             ) : (
               <div className="w-full h-32 bg-gray-100 flex items-center justify-center text-gray-400 italic mb-4">
                 Sem imagem

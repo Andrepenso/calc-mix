@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import SaibaMais from "./pages/SaibaMais";
+import EquipamentosCompactos from "./pages/saiba-mais/EquipamentosCompactos";
+import ConsumoDiesel from "./pages/saiba-mais/ConsumoDiesel";
 import EquipamentosPublico from "./pages/EquipamentosPublico";
 import Analise from "./pages/Analise";
 import Locacao from './pages/Locacao';
@@ -11,6 +13,7 @@ import EquipamentosAdmin from "./admin/EquipamentosAdmin";
 import TracosAdmin from "./admin/TracosAdmin";
 import Dashboard from "./admin/Dashboard";
 import PrivateRoute from "./routes/PrivateRoute.jsx";
+import AdminDashboard from "./pages/AdminDashboard";
 
 function App() {
   const [showNavbar, setShowNavbar] = useState(() => {
@@ -45,6 +48,8 @@ function App() {
           }
         />
         <Route path="/saiba-mais" element={<SaibaMais />} />
+        <Route path="/saiba-mais/equipamentos-compactos" element={<EquipamentosCompactos />} />
+        <Route path="/saiba-mais/consumo-diesel" element={<ConsumoDiesel />} />
         <Route path="/equipamentos" element={<EquipamentosPublico />} />
         <Route path="/analise" element={<Analise />} />
         <Route path="/locacao" element={<Locacao />} />
@@ -54,6 +59,7 @@ function App() {
         <Route path="/admin/dashboard" element={<PrivateRoute element={<Dashboard />} />} />
         <Route path="/admin/equipamentos" element={<PrivateRoute element={<EquipamentosAdmin />} />} />
         <Route path="/admin/tracos" element={<PrivateRoute element={<TracosAdmin />} />} />
+        <Route path="/admin/analises" element={<PrivateRoute element={<AdminDashboard />} />} />
       </Routes>
     </Router>
   );
