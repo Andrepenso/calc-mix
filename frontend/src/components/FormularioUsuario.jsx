@@ -25,7 +25,8 @@ const FormularioUsuario = ({ dadosAnalise, onSubmit }) => {
                 ...dadosAnalise, // contém cimento, areia, brita, etc.
             };
 
-            const res = await axios.post("http://localhost:5000/api/analises", payload);
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/analises`, payload);
+
             alert("Análise registrada com sucesso!");
 
             onSubmit(payload);
