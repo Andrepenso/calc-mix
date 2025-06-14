@@ -35,8 +35,8 @@ function Navbar({ isVisible }) {
         </div>
 
         {/* Botão Admin Desktop */}
-        <Link 
-          to="/login" 
+        <Link
+          to="/login"
           className="hidden md:block bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700 transition"
         >
           🔐 Admin
@@ -59,8 +59,11 @@ function Navbar({ isVisible }) {
             <Link to="/analise" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-blue-500 transition">
               📊 Análise
             </Link>
-            <Link 
-              to="/login" 
+            <Link to="/locacao" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-blue-500 transition">
+              🚛 Locação
+            </Link>
+            <Link
+              to="/login"
               onClick={() => setIsMobileMenuOpen(false)}
               className="bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700 transition"
             >

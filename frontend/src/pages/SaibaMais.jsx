@@ -23,7 +23,7 @@ function SaibaMais() {
       titulo: "Traço FCK 25 vs FCK 30: qual a diferença prática?",
       descricao:
         "Entenda a diferença entre os traços mais utilizados em obras e como isso afeta durabilidade, resistência e custo da concretagem.",
-      imagem: "https://via.placeholder.com/400x200?text=FCK+25+vs+FCK+30",
+      imagem: "/capafck.jpg",
       link: "/saiba-mais/fck25-vs-fck30",
     },
     {
@@ -31,7 +31,7 @@ function SaibaMais() {
       titulo: "Como calcular o payback de um equipamento de concreto",
       descricao:
         "Aprenda a estimar em quanto tempo o investimento em uma autoconcreteira pode se pagar, considerando volume, custo operacional e uso previsto.",
-      imagem: "https://via.placeholder.com/400x200?text=Payback+de+Equipamento",
+      imagem: "/payback.jpg",
       link: "/saiba-mais/payback-equipamento",
     },
     {
@@ -39,7 +39,7 @@ function SaibaMais() {
       titulo: "Checklist de manutenção para garantir performance da autoconcreteira",
       descricao:
         "Evite surpresas na obra. Confira os principais pontos de verificação para manter sua autoconcreteira funcionando com alta eficiência e segurança.",
-      imagem: "https://via.placeholder.com/400x200?text=Checklist+Manuten%C3%A7%C3%A3o",
+      imagem: "manutencao.jpg",
       link: "/saiba-mais/checklist-manutencao",
     },
   ];

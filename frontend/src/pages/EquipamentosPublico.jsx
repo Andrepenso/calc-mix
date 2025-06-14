@@ -44,12 +44,14 @@ function EquipamentosPublico() {
               })}</p>
               <li><strong>Volume do Balão:</strong> {equipamento.volume_balao} m³</li>
               <li><strong>Capacidade Produção:</strong> {equipamento.capacidade_producao_hora} m³/h</li>
+              {/* ocultar da listagem
               <li><strong>Capacidade Tanque de Diesel:</strong> {equipamento.capacidade_tanque_diesel} L</li>
               <li><strong>Capacidade Óleo Motor:</strong> {equipamento.capacidade_oleo_motor} L</li>
               <li><strong>Capacidade Óleo Hidráulico:</strong> {equipamento.capacidade_oleo_hidraulico} L</li>
               <li><strong>Capacidade Óleo Redutor:</strong> {equipamento.capacidade_oleo_redutor} L</li>
               <li><strong>Capacidade Fluídos de Freios:</strong> {equipamento.fluido_freios} L</li>
               <li><strong>Capacidade Graxa:</strong> {equipamento.graxa} L</li>
+              */}
             </ul>
           </div>
         ))}

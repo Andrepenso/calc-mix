@@ -5,6 +5,9 @@ import Home from "./pages/Home";
 import SaibaMais from "./pages/SaibaMais";
 import EquipamentosCompactos from "./pages/saiba-mais/EquipamentosCompactos";
 import ConsumoDiesel from "./pages/saiba-mais/ConsumoDiesel";
+import BlogFck from "./pages/saiba-mais/BlogFck";
+import BlogPayback from "./pages/saiba-mais/BlogPayback";
+import BlogChecklist from "./pages/saiba-mais/BlogChecklist";
 import EquipamentosPublico from "./pages/EquipamentosPublico";
 import Analise from "./pages/Analise";
 import Locacao from './pages/Locacao';
@@ -50,6 +53,9 @@ function App() {
         <Route path="/saiba-mais" element={<SaibaMais />} />
         <Route path="/saiba-mais/equipamentos-compactos" element={<EquipamentosCompactos />} />
         <Route path="/saiba-mais/consumo-diesel" element={<ConsumoDiesel />} />
+        <Route path="/saiba-mais/fck25-vs-fck30" element={<BlogFck />} />
+        <Route path="/saiba-mais/payback-equipamento" element={<BlogPayback />} />
+        <Route path="/saiba-mais/checklist-manutencao" element={<BlogChecklist />} />
         <Route path="/equipamentos" element={<EquipamentosPublico />} />
         <Route path="/analise" element={<Analise />} />
         <Route path="/locacao" element={<Locacao />} />
