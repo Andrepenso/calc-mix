@@ -70,6 +70,16 @@ function Analise() {
     setCosts({ ...costs, [e.target.name]: e.target.value });
   };
 
+  const validarInsumosObrigatorios = () => {
+  const { areia, agua, cimento, brita } = costs;
+  if (!areia || !agua || !cimento || !brita) {
+    alert("⚠️ Por favor, preencha todos os insumos obrigatórios: cimento, areia, brita e água.");
+    return false;
+  }
+  return true;
+};
+
+
   const converterCustoParaUnidadePadrao = (valor, unidade, material) => {
     const val = parseFloat(valor) || 0;
 
@@ -102,6 +112,9 @@ function Analise() {
       alert("Por favor, selecione um traço de concreto.");
       return;
     }
+    if (!validarInsumosObrigatorios()) {
+  return;
+}
 
     // Produção mensal em cada cenário
     const horasMesMax = 160; // 8h/dia × 20 dias
