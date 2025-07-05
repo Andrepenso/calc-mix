@@ -7,10 +7,19 @@ function Navbar({ isVisible }) {
   if (!isVisible) return null; // Se a Navbar estiver oculta, retorna null
 
   return (
-    <nav className="fixed top-0 left-0 w-full p-6 bg-white/90 backdrop-blur-md shadow-md z-50">
+    <nav className="fixed top-0 left-0 w-full px-4 py-2 bg-white/90 backdrop-blur-md shadow-md z-50">
+
       <div className="w-full flex justify-between items-center">
         {/* Logo */}
-        <h1 className="text-xl font-bold text-gray-800">CalcMix – Custo e Concreto</h1>
+        <div className="flex items-center gap-3">
+          <img
+            src="/logo-calcmix3.png"
+            alt="Logo CalcMix"
+            className="h-12 md:h-20 w-auto"
+            style={{ maxHeight: "80px" }}
+          />
+        </div>
+
 
         {/* Botão para Mobile */}
         <div className="md:hidden">
