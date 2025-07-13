@@ -71,13 +71,13 @@ function Analise() {
   };
 
   const validarInsumosObrigatorios = () => {
-  const { areia, agua, cimento, brita } = costs;
-  if (!areia || !agua || !cimento || !brita) {
-    alert("⚠️ Por favor, preencha todos os insumos obrigatórios: cimento, areia, brita e água.");
-    return false;
-  }
-  return true;
-};
+    const { areia, agua, cimento, brita } = costs;
+    if (!areia || !agua || !cimento || !brita) {
+      alert("⚠️ Por favor, preencha todos os insumos obrigatórios: cimento, areia, brita e água.");
+      return false;
+    }
+    return true;
+  };
 
 
   const converterCustoParaUnidadePadrao = (valor, unidade, material) => {
@@ -113,8 +113,8 @@ function Analise() {
       return;
     }
     if (!validarInsumosObrigatorios()) {
-  return;
-}
+      return;
+    }
 
     // Produção mensal em cada cenário
     const horasMesMax = 160; // 8h/dia × 20 dias
@@ -194,7 +194,7 @@ function Analise() {
     const custoAjudanteDia = calcularCustoDiario(salarios.ajudante, fatoresMaoDeObra.ajudante);
     const custoMecanicoDia = calcularCustoDiario(salarios.mecanico, fatoresMaoDeObra.mecanico);
 
-    // ✅ Soma total
+    // Soma total
     const custoMaoDeObraTotalDia = custoOperadorDia + custoAjudanteDia + custoMecanicoDia;
 
 

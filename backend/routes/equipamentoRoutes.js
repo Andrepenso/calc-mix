@@ -15,7 +15,7 @@ cloudinary.config({
   api_secret: "Wq94lQjfsibEM3gHV2g2OaR3d6w",
 });
 
-// 🎒 Configurar armazenamento em nuvem via multer
+// Configurar armazenamento em nuvem via multer
 const storage = new CloudinaryStorage({
   cloudinary,
   params: {
@@ -28,7 +28,7 @@ const upload = multer({ storage });
 
 const router = express.Router();
 
-// 📌 Helper: formata números corretamente
+// Helper: formata números corretamente
 function formatarNumeros(obj) {
   const camposNumericos = [
     "valor",
@@ -52,7 +52,7 @@ function formatarNumeros(obj) {
   return obj;
 }
 
-// 📌 Criar novo equipamento
+// Criar novo equipamento
 router.post("/", authMiddleware, upload.single("imagem"), async (req, res) => {
   try {
     const equipamentoData = formatarNumeros({ ...req.body });
@@ -70,7 +70,7 @@ router.post("/", authMiddleware, upload.single("imagem"), async (req, res) => {
   }
 });
 
-// 📌 Listar todos os equipamentos
+//Listar todos os equipamentos
 router.get("/", async (req, res) => {
   try {
     const equipamentos = await Equipamento.find();
@@ -87,7 +87,7 @@ router.get("/", async (req, res) => {
 });
 
 
-// 📌 Editar um equipamento
+// Editar um equipamento
 router.put("/:id", authMiddleware, upload.single("imagem"), async (req, res) => {
   try {
     const updateData = formatarNumeros({ ...req.body });
@@ -104,7 +104,7 @@ router.put("/:id", authMiddleware, upload.single("imagem"), async (req, res) => 
   }
 });
 
-// 📌 Deletar equipamento
+// Deletar equipamento
 const path = require("path");
 
 router.delete("/:id", authMiddleware, async (req, res) => {

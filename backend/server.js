@@ -12,26 +12,26 @@ const authRoutes = require("./routes/authRoutes");
 
 const app = express(); // 🔹 Inicializa `app` antes de usá-lo
 
-// 📌 Middlewares globais
+// Middlewares globais
 app.use(express.json());
 app.use(cors());
 
-// 📂 Servir imagens estáticas
+// Servir imagens estáticas
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-// 📌 Conectar ao MongoDB Atlas
+// Conectar ao MongoDB Atlas
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log("✅ MongoDB Atlas conectado com sucesso!"))
   .catch((err) => console.error("❌ Erro ao conectar ao MongoDB:", err));
 
-// 📌 Registrar as rotas
+// Registrar as rotas
 app.use("/api/auth", authRoutes);
 app.use("/api/equipamentos", equipamentoRoutes);
 app.use("/api/tracos", tracoRoutes);
 app.use("/api/analises", analiseRoutes);
 
-// 📌 Criar admin automaticamente
+// Criar admin automaticamente
 const User = require("./models/User");
 
 const criarUsuarioAdmin = async () => {
@@ -49,12 +49,12 @@ const criarUsuarioAdmin = async () => {
 };
 criarUsuarioAdmin();
 
-// 📌 Rota principal para testar se o servidor está rodando
+// Rota principal para testar se o servidor está rodando
 app.get("/", (req, res) => {
   res.send("✅ Backend conectado e rodando corretamente!");
 });
 
-// 📌 Iniciar o servidor
+// Iniciar o servidor
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Servidor rodando na porta ${PORT}`));
 
