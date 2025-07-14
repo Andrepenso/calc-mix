@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 const AdminDashboard = () => {
@@ -8,7 +9,7 @@ const AdminDashboard = () => {
     vantajoso: "",
     equipamento: "",
     dataInicio: "",
-    dataFim: ""
+    dataFim: "",
   });
 
   useEffect(() => {
@@ -44,72 +45,87 @@ const AdminDashboard = () => {
   };
 
   const analisesFiltradas = analises.filter((a) => {
-  const vantajosoFiltro =
-    filtros.vantajoso === "" ||
-    (filtros.vantajoso === "propria" &&
-      parseFloat(a.custosUnitarios?.max ?? a.resultadoFinal) <
-        parseFloat(a.concretoUsinado)) ||
-    (filtros.vantajoso === "usinado" &&
-      parseFloat(a.custosUnitarios?.max ?? a.resultadoFinal) >=
-        parseFloat(a.concretoUsinado));
+    const vantajosoFiltro =
+      filtros.vantajoso === "" ||
+      (filtros.vantajoso === "propria" &&
+        parseFloat(a.custosUnitarios?.max ?? a.resultadoFinal) <
+          parseFloat(a.concretoUsinado)) ||
+      (filtros.vantajoso === "usinado" &&
+        parseFloat(a.custosUnitarios?.max ?? a.resultadoFinal) >=
+          parseFloat(a.concretoUsinado));
 
-  const equipamentoFiltro =
-    filtros.equipamento === "" || a.equipamento === filtros.equipamento;
+    const equipamentoFiltro =
+      filtros.equipamento === "" || a.equipamento === filtros.equipamento;
 
-  const data = new Date(a.criadoEm);
-  const inicio = filtros.dataInicio ? new Date(filtros.dataInicio) : null;
-  const fim = filtros.dataFim ? new Date(filtros.dataFim) : null;
-  const dataFiltro = (!inicio || data >= inicio) && (!fim || data <= fim);
+    const data = new Date(a.criadoEm);
+    const inicio = filtros.dataInicio ? new Date(filtros.dataInicio) : null;
+    const fim = filtros.dataFim ? new Date(filtros.dataFim) : null;
+    const dataFiltro = (!inicio || data >= inicio) && (!fim || data <= fim);
 
-  const statusFiltro =
-    filtroStatus === "Todos" || a.atendido === filtroStatus;
+    const statusFiltro = filtroStatus === "Todos" || a.atendido === filtroStatus;
 
-  return vantajosoFiltro && equipamentoFiltro && dataFiltro && statusFiltro;
-});
+    return vantajosoFiltro && equipamentoFiltro && dataFiltro && statusFiltro;
+  });
 
-
-  const equipamentosUnicos = [...new Set(analises.map(a => a.equipamento))];
+  const equipamentosUnicos = [...new Set(analises.map((a) => a.equipamento))];
 
   return (
     <div className="p-6 pt-24 max-w-6xl mx-auto">
       <h1 className="text-2xl font-bold mb-6 text-center">🧾 Análises Realizadas</h1>
 
       {/* Filtros */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-        <select
-          className="border rounded p-2"
-          value={filtros.vantajoso}
-          onChange={(e) => setFiltros({ ...filtros, vantajoso: e.target.value })}
-        >
-          <option value="">Todos</option>
-          <option value="propria">Mais vantajoso: Produção própria</option>
-          <option value="usinado">Mais vantajoso: Usinado</option>
-        </select>
+      <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-6 gap-4 flex-wrap">
 
-        <select
-          className="border rounded p-2"
-          value={filtros.equipamento}
-          onChange={(e) => setFiltros({ ...filtros, equipamento: e.target.value })}
-        >
-          <option value="">Todos Equipamentos</option>
-          {equipamentosUnicos.map((eq) => (
-            <option key={eq} value={eq}>{eq}</option>
-          ))}
-        </select>
+  {/* Botão Voltar */}
+  <div className="md:w-auto">
+    <Link to="/admin/dashboard" className="text-blue-600 hover:underline">
+      ← Voltar para Dashboard
+    </Link>
+  </div>
 
-        <input
-          type="date"
-          className="border rounded p-2"
-          value={filtros.dataInicio}
-          onChange={(e) => setFiltros({ ...filtros, dataInicio: e.target.value })}
-        />
-        <input
-          type="date"
-          className="border rounded p-2"
-          value={filtros.dataFim}
-          onChange={(e) => setFiltros({ ...filtros, dataFim: e.target.value })}
-        />
-      </div>
+  {/* Filtros */}
+  <div className="flex flex-col md:flex-row gap-4 flex-wrap">
+
+    <select
+      className="border rounded p-2"
+      value={filtros.vantajoso}
+      onChange={(e) => setFiltros({ ...filtros, vantajoso: e.target.value })}
+    >
+      <option value="">Todos</option>
+      <option value="propria">Mais vantajoso: Produção própria</option>
+      <option value="usinado">Mais vantajoso: Usinado</option>
+    </select>
+
+    <select
+      className="border rounded p-2"
+      value={filtros.equipamento}
+      onChange={(e) => setFiltros({ ...filtros, equipamento: e.target.value })}
+    >
+      <option value="">Todos Equipamentos</option>
+      {equipamentosUnicos.map((eq) => (
+        <option key={eq} value={eq}>{eq}</option>
+      ))}
+    </select>
+
+    <input
+      type="date"
+      className="border rounded p-2"
+      value={filtros.dataInicio}
+      onChange={(e) => setFiltros({ ...filtros, dataInicio: e.target.value })}
+    />
+
+    <input
+      type="date"
+      className="border rounded p-2"
+      value={filtros.dataFim}
+      onChange={(e) => setFiltros({ ...filtros, dataFim: e.target.value })}
+    />
+  </div>
+
+</div>
+
+       
+
       <div className="flex items-center justify-end mb-4 gap-2">
         <label className="text-sm font-medium">Filtrar por status:</label>
         <select
@@ -123,7 +139,6 @@ const AdminDashboard = () => {
           <option value="Atendido">✅ Atendido</option>
         </select>
       </div>
-
 
       <div className="overflow-auto rounded shadow bg-white">
         <table className="min-w-full text-sm text-left">
@@ -143,7 +158,6 @@ const AdminDashboard = () => {
           </thead>
           <tbody>
             {analisesFiltradas.map((a) => (
-
               <tr key={a._id} className="border-t hover:bg-gray-50">
                 <td className="p-2">{new Date(a.criadoEm).toLocaleString()}</td>
                 <td className="p-2">{a.nome}</td>
@@ -179,8 +193,17 @@ const AdminDashboard = () => {
               </tr>
             ))}
           </tbody>
-
         </table>
+      </div>
+
+      {/* Botão de Voltar */}
+      <div className="mt-6">
+        <Link
+          to="/admin/dashboard"
+          className="text-blue-600 hover:underline text-sm inline-block"
+        >
+          ← Voltar para Dashboard
+        </Link>
       </div>
     </div>
   );

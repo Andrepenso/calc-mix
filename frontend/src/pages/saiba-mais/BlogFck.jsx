@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function BlogFck() {
   return (
@@ -75,6 +76,12 @@ function BlogFck() {
         sempre seguir as orientações do engenheiro estrutural, considerando segurança,
         desempenho e custo-benefício para sua obra.
       </p>
+
+      <div className="mt-8">
+        <Link to="/saiba-mais" className="text-blue-600 hover:underline">
+          ← Voltar para Saiba Mais
+        </Link>
+      </div>
     </div>
   );
 }

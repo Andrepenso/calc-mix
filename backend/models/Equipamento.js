@@ -15,4 +15,6 @@ const EquipamentoSchema = new mongoose.Schema({
   imagem: { type: String } // Caminho da imagem (opcional)
 });
 
+
+
 module.exports = mongoose.model("Equipamento", EquipamentoSchema);

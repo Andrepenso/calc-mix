@@ -4,12 +4,17 @@ import axios from "axios";
 function EquipamentosPublico() {
   const [equipamentos, setEquipamentos] = useState([]);
 
+  
+
   useEffect(() => {
     axios
       .get(`${import.meta.env.VITE_API_URL}/api/equipamentos`)
       .then(response => setEquipamentos(response.data))
       .catch(error => console.error("Erro ao buscar equipamentos", error));
   }, []);
+
+  
+
 
   return (
     <div className="p-6 pt-24">

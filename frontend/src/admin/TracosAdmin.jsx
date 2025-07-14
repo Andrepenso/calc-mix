@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+
 
 function TracosAdmin() {
   const [tracos, setTracos] = useState([]);
@@ -241,7 +243,7 @@ function TracosAdmin() {
         </div>
       )}
 
-      {/* Lista de Traços */}
+            {/* Lista de Traços */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {tracos.map((traco) => (
           <div key={traco._id} className="bg-white p-4 rounded-lg shadow-md">
@@ -270,6 +272,13 @@ function TracosAdmin() {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Botão Voltar */}
+      <div className="mt-8">
+        <Link to="/admin/dashboard" className="text-blue-600 hover:underline">
+          ← Voltar para Dashboard
+        </Link>
       </div>
     </div>
   );

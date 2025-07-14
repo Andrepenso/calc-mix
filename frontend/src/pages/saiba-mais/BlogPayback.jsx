@@ -1,15 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function BlogPayback() {
   return (
     <div className="max-w-4xl mx-auto p-6 pt-24 text-gray-800">
-
       <img
         src="/payback.jpg"
         alt="Cálculo de retorno de investimento"
         className="rounded mb-6 mx-auto max-w-md w-full"
       />
-
 
       <h1 className="text-2xl font-bold mb-4">
         Como calcular o payback de um equipamento de concreto
@@ -47,6 +46,12 @@ function BlogPayback() {
       <p>
         O payback ajuda a tomar decisões com base em dados reais. Quanto maior a produção e a economia por metro cúbico, mais rápido é o retorno. Ferramentas de análise como esta plataforma facilitam esse cálculo com precisão.
       </p>
+
+      <div className="mt-8">
+        <Link to="/saiba-mais" className="text-blue-600 hover:underline">
+          ← Voltar para Saiba Mais
+        </Link>
+      </div>
     </div>
   );
 }

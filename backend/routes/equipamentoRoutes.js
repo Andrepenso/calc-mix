@@ -70,7 +70,8 @@ router.post("/", authMiddleware, upload.single("imagem"), async (req, res) => {
   }
 });
 
-//Listar todos os equipamentos
+//Listar todos os equipamentos/
+
 router.get("/", async (req, res) => {
   try {
     const equipamentos = await Equipamento.find();
@@ -85,6 +86,10 @@ router.get("/", async (req, res) => {
     res.status(500).json({ error: "Erro ao buscar equipamentos" });
   }
 });
+
+
+
+
 
 
 // Editar um equipamento

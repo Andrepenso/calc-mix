@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+
 
 function EquipamentosAdmin() {
   const [equipamentos, setEquipamentos] = useState([]);
@@ -381,6 +383,8 @@ function EquipamentosAdmin() {
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+
         {equipamentos.map((equipamento) => (
           <div key={equipamento._id} className="border rounded-lg shadow-md p-4 bg-white flex flex-col justify-between h-full">
 
@@ -449,11 +453,18 @@ function EquipamentosAdmin() {
               </button>
             </div>
           </div>
-
         ))}
+      </div>
+
+      {/* Botão Voltar */}
+      <div className="mt-8">
+        <Link to="/admin/dashboard" className="text-blue-600 hover:underline">
+          ← Voltar para Dashboard
+        </Link>
       </div>
     </div>
   );
 }
+
 
 export default EquipamentosAdmin;

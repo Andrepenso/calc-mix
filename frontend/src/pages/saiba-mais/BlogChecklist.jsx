@@ -1,9 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function BlogChecklist() {
   return (
     <div className="max-w-4xl mx-auto p-6 pt-24 text-gray-800">
-
       <img
         src="/manutencao.jpg"
         alt="Checklist de manutenção da autoconcreteira"
@@ -52,6 +52,12 @@ function BlogChecklist() {
       <p>
         Uma autoconcreteira bem cuidada aumenta a produtividade e reduz custos com reparos. Adotar um checklist regular é uma prática simples que garante maior retorno sobre o investimento.
       </p>
+
+      <div className="mt-8">
+        <Link to="/saiba-mais" className="text-blue-600 hover:underline">
+          ← Voltar para Saiba Mais
+        </Link>
+      </div>
     </div>
   );
 }
